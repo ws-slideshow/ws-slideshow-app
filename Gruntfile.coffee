@@ -42,19 +42,18 @@ module.exports = (grunt) ->
     # coffee
     # ------------------------------------------------------------
     coffee:
-      debug:
+      app:
         options:
           join: true
           bare: true
           sourceMap: true
         files:
-          '<%= pathes.dist %>/js/<%= pkg.name %>.js':'<%= pathes.src %>/app/<%= pkg.name %>.coffee'
-      release:
-        options:
-          join: true
-          bare: true
-        files:
-          '<%= pathes.tmp %>/js/<%= pkg.name %>.<%= pkg.version %>.js': '<%= pathes.src %>/app/<%= pkg.name %>.coffee'
+          '<%= pathes.tmp %>/js/<%= pkg.name %>.js': [
+            '<%= pathes.src %>/app/slides/**/**.coffee'
+            '<%= pathes.src %>/app/thumbs/**/**.coffee'
+            '<%= pathes.src %>/app/app.coffee'
+            '<%= pathes.src %>/app/<%= pkg.name %>.coffee'
+          ]
 
     #  references for index.html
     # ------------------------------------------------------------
@@ -79,7 +78,7 @@ module.exports = (grunt) ->
         files:
           '<%= pathes.dist %>/js/<%= pkg.name %>.<%= pkg.version %>.min.js': [
             '<%= pathes.tmp %>/js/<%= pkg.name %>.lib.js'
-            '<%= pathes.tmp %>/js/<%= pkg.name %>.<%= pkg.version %>.js'
+            '<%= pathes.tmp %>/js/<%= pkg.name %>.js'
           ]
 
     # copy
@@ -108,13 +107,24 @@ module.exports = (grunt) ->
           dest: '<%= pathes.dist %>/',
           filter: 'isFile'
         ]
+      vendor:
+      # vendor files
+        files:[
+          expand: true,
+          cwd: '<%= pathes.vendor %>/'
+          src: [
+            'zepto/zepto.js'
+          ],
+          flatten: true
+          dest: '<%= pathes.dist %>/js/',
+          filter: 'isFile'
+        ]
 
     # concat
     # ------------------------------------------------------------
     concat:
       jslib:
         src: [
-          '<%= pathes.vendor %>/zepto/zepto.js'
           '<%= pathes.vendor %>/angular/angular.js'
           '<%= pathes.vendor %>/angular-animate/angular-animate.js'
           '<%= pathes.vendor %>/angular-resource/angular-resource.js'
@@ -134,6 +144,7 @@ module.exports = (grunt) ->
       debug:
         options:
           base: 'dist'
+          livereload: true
       release:
         options:
           keepalive: true
@@ -171,15 +182,15 @@ module.exports = (grunt) ->
     # watch
     # ------------------------------------------------------------
     watch:
-      options:
-        livereload: true
       coffee:
         files: [
           '<%= pathes.src %>/app/**/*.coffee'
         ],
         tasks: [
-          'coffee:debug'
+          'coffee:app'
         ]
+        options:
+          livereload: true
       grunt:
         files: [
           'Gruntfile.coffee'
@@ -217,8 +228,9 @@ module.exports = (grunt) ->
   grunt.registerTask 'debug', [
     'clean'
     'coffeelint:app'
-    'coffee:debug'
+    'coffee:app'
     'concat:jslib'
+    'copy:vendor'
     'copy:debugjs'
     'copy:debugindex'
     'connect:debug'
@@ -228,8 +240,9 @@ module.exports = (grunt) ->
   grunt.registerTask 'release', [
     'clean'
     'coffeelint:app'
-    'coffee:release'
+    'coffee:app'
     'concat:jslib'
+    'copy:vendor'
     'uglify:release'
     'htmlrefs:release'
     'connect:release'
@@ -244,7 +257,7 @@ module.exports = (grunt) ->
     'copy:debugjs'
     'coffeelint:app'
     'coffeelint:test'
-    'coffee:debug'
+    'coffee:app'
     'karma:unit'
   ]
 

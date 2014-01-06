@@ -3,27 +3,35 @@
   <head>
     <meta charset="utf-8">
     <title>WS-Slideshow</title>
+    <script type="text/javascript" src="js/zepto.js"></script>
+    <!-- ref:remove -->
+    <script src="//localhost:35729/livereload.js"></script>
+    <!-- endref -->
+    <script>
+      $(function(){
+        WSSlideshow.init({
+            id: 'wssscontainer'
+          });
+        }
+      )
+    </script>
     <style type="text/css">
 
-      #wsss-container{
-        width: 100%;
-        height: 100%;
+      #wssscontainer{
+        width: 500px;
+        height: 300px;
         background-color: darkseagreen;
       }
 
     </style>
   </head>
   <body>
-    <h1>WS-Slideshow Example</h1>
+    <h1>WS-Slideshow example</h1>
+    <div id="wssscontainer"></div>
+
     <!-- ref:js js/ws-slideshow.<%= version %>.min.js -->
     <script type="text/javascript" src="js/ws-slideshow.lib.js"></script>
     <script type="text/javascript" src="js/ws-slideshow.js"></script>
     <!-- endref -->
-    <script type="text/javascript">
-      //wsss.init({
-      // target: 'wsss-container'
-      // });
-    </script>
-    <div id="wsss-container"></div>
   </body>
 </html>
