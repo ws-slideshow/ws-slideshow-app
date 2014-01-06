@@ -1,0 +1,14 @@
+
+tmp/
+dist/
+vendor/*
+!vendor/zepto/
+
+node_modules/
+npm-debug.log
+.sass-cache
+
+.idea
+*.iml
+
+.DS_Store
