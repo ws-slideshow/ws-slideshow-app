@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>WS-Slideshow</title>
-    <script type="text/javascript" src="js/zepto.js"></script>
     <!-- ref:remove -->
     <script src="//localhost:35729/livereload.js"></script>
     <!-- endref -->
     <script>
-      $(function(){
+
+      function onloadHandler(){
         WSSlideshow.init({
             id: 'wssscontainer'
           });
-        }
-      )
+      }
+
     </script>
     <style type="text/css">
 
@@ -25,9 +25,14 @@
 
     </style>
   </head>
-  <body>
+  <body onload="onloadHandler()">
     <h1>WS-Slideshow example</h1>
-    <div id="wssscontainer"></div>
+    <div
+        id="wssscontainer"
+        data-json=""
+        data-xml=""
+        data-lang=""
+        ></div>
 
     <!-- ref:js js/ws-slideshow.<%= version %>.min.js -->
     <script type="text/javascript" src="js/ws-slideshow.lib.js"></script>

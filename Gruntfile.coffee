@@ -49,6 +49,7 @@ module.exports = (grunt) ->
           sourceMap: true
         files:
           '<%= pathes.tmp %>/js/<%= pkg.name %>.js': [
+            '<%= pathes.src %>/app/modules.coffee'
             '<%= pathes.src %>/app/slides/**/**.coffee'
             '<%= pathes.src %>/app/thumbs/**/**.coffee'
             '<%= pathes.src %>/app/app.coffee'
@@ -113,7 +114,7 @@ module.exports = (grunt) ->
           expand: true,
           cwd: '<%= pathes.vendor %>/'
           src: [
-            'zepto/zepto.js'
+#            'zepto/zepto.js'
           ],
           flatten: true
           dest: '<%= pathes.dist %>/js/',
@@ -188,6 +189,7 @@ module.exports = (grunt) ->
         ],
         tasks: [
           'coffee:app'
+          'copy:debugjs'
         ]
         options:
           livereload: true
