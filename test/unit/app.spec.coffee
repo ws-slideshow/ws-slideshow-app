@@ -1,4 +1,4 @@
-describe 'app', ->
+describe 'module app: ', ->
 
   beforeEach module('wsss.app')
 

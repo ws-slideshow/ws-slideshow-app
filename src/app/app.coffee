@@ -1,11 +1,13 @@
 angular.module('wsss.app', [
-
+  'wsss.config'
 ])
+
 
 # AppController
 # ------------------------------------------------------------
-.controller 'AppController',[
+.controller('AppController',[
   '$log',
+  'ConfigService'
   ($log)->
 
     init = ->
@@ -13,4 +15,4 @@ angular.module('wsss.app', [
 
 
     init()
-]
+])
