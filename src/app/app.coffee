@@ -1,9 +1,6 @@
-# module definition
-# ------------------------------------------------------------
-angular.module('wsss.app', [
-])
+angular.module('wsss.app')
 
-# controller
+# AppController
 # ------------------------------------------------------------
 .controller 'AppController',[
   '$log',

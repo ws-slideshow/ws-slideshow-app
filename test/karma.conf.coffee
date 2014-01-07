@@ -13,6 +13,7 @@ module.exports = (karma) ->
     # list of files / patterns to load in the browser
     files: [
       'dist/js/ws-slideshow.lib.js'
+      'tmp/js/ws-slideshow.js'
       'vendor/angular-mocks/angular-mocks.js'
       'dist/js/ws-slideshow.*.js'
       'test/unit/**/*.coffee'

@@ -6,6 +6,10 @@ describe 'dummy', ->
   afterEach ->
 
 
-  it '2*2', ->
+  it 'equal', ->
     expect(2*2).to.equal 2+2
+
+  it 'ok', ->
+    hello = 'world'
+    expect(hello).to.be.ok
 
