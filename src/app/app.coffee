@@ -1,4 +1,6 @@
-angular.module('wsss.app')
+angular.module('wsss.app', [
+
+])
 
 # AppController
 # ------------------------------------------------------------
