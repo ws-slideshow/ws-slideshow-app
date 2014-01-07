@@ -1,0 +1,58 @@
+{
+  "preferences": {
+    "thumbSize": 50
+  },
+  "albums": [
+    {
+      "slidePath": "slides/amrum/",
+      "thumbPath": "slides/amrum/",
+      "description": "Amrum - North Sea (Germany) // Amrum - Nordsee",
+      "slides": [
+        {
+          "name": "18.jpg",
+          "thumbName": "thumb_18.jpg"
+        },
+        {
+          "name": "0.jpg",
+          "thumbName": "thumb_0.jpg"
+        },
+        {
+          "name": "1.jpg",
+          "thumbName": "thumb_1.jpg"
+        },
+        {
+          "name": "2.jpg",
+          "thumbName": "thumb_2.jpg"
+        }
+      ]
+    },
+    {
+      "slidePath": "slides/amrum/",
+      "thumbPath": "slides/amrum/",
+      "description": "Damp - Baltic Sea (Germany) // Damp - Ostsee",
+      "slides": [
+        {
+          "name": "8.jpg",
+          "thumbName": "thumb_8.jpg",
+          "description": "Damp - Baltic Sea (Germany) // Damp - Ostsee"
+        },
+        {
+          "name": "9.jpg",
+          "thumbName": "thumb_9.jpg"
+        },
+        {
+          "name": "2.jpg",
+          "thumbName": "thumb_2.jpg"
+        },
+        {
+          "name": "3.jpg",
+          "thumbName": "thumb_3.jpg"
+        },
+        {
+          "name": "4.jpg",
+          "thumbName": "thumb_4.jpg"
+        }
+      ]
+    }
+  ]
+}
