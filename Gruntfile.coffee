@@ -49,7 +49,6 @@ module.exports = (grunt) ->
           sourceMap: true
         files:
           '<%= pathes.tmp %>/js/<%= pkg.name %>.js': [
-            '<%= pathes.src %>/app/modules.coffee'
             '<%= pathes.src %>/app/slides/**/**.coffee'
             '<%= pathes.src %>/app/thumbs/**/**.coffee'
             '<%= pathes.src %>/app/app.coffee'
@@ -226,18 +225,26 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-htmlrefs'
   grunt.loadNpmTasks 'grunt-karma'
 
-
-  grunt.registerTask 'debug', [
+  # debug tasks
+  # ------------------------------------------------------------
+  
+  grunt.registerTask 'prepare-debug', [
     'clean'
+    'concat:jslib'
     'coffeelint:app'
     'coffee:app'
-    'concat:jslib'
-    'copy:vendor'
     'copy:debugjs'
+  ]
+  
+  grunt.registerTask 'debug', [
+    'prepare-debug'
     'copy:debugindex'
     'connect:debug'
     'watch'
   ]
+
+  # release task
+  # ------------------------------------------------------------
 
   grunt.registerTask 'release', [
     'clean'
@@ -254,16 +261,14 @@ module.exports = (grunt) ->
   # test tasks
   # ------------------------------------------------------------
   grunt.registerTask 'test:unit', [
-    'clean'
-    'concat:jslib'
-    'copy:debugjs'
-    'coffeelint:app'
+    'prepare-debug'
     'coffeelint:test'
-    'coffee:app'
     'karma:unit'
   ]
 
-
+  # default task
+  # ------------------------------------------------------------
+  
   grunt.registerTask 'default', [
     'debug'
   ]
