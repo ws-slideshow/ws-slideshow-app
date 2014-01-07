@@ -17,6 +17,7 @@ module.exports = (grunt) ->
       vendor: 'vendor'
       tmp: 'tmp'
       test: 'test'
+      assets: 'assets'
 
     meta:
       banner: '''
@@ -117,6 +118,19 @@ module.exports = (grunt) ->
           ],
           flatten: true
           dest: '<%= pathes.dist %>/js/',
+          filter: 'isFile'
+        ]
+      assets:
+        # asset files
+        files:[
+          expand: true,
+          cwd: '<%= pathes.assets %>/'
+          src: [
+            'slides/**/**'
+            'xml/*.xml'
+            'json/*.json'
+          ],
+          dest: '<%= pathes.dist %>/assets/',
           filter: 'isFile'
         ]
 
@@ -238,6 +252,8 @@ module.exports = (grunt) ->
   
   grunt.registerTask 'debug', [
     'prepare-debug'
+    'copy:assets'
+    'copy:vendor'
     'copy:debugindex'
     'connect:debug'
     'watch'
@@ -251,6 +267,7 @@ module.exports = (grunt) ->
     'coffeelint:app'
     'coffee:app'
     'concat:jslib'
+    'copy:assets'
     'copy:vendor'
     'uglify:release'
     'htmlrefs:release'
