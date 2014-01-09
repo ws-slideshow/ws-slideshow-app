@@ -58,6 +58,38 @@ module.exports = (grunt) ->
             '<%= pathes.src %>/app/<%= pkg.name %>.coffee'
           ]
 
+
+    # sass
+    # ------------------------------------------------------------
+    sass:
+      debug:
+        options:
+          trace: true
+          quiet: false
+          debugInfo: true
+          lineNumbers: true
+        files:
+          '<%= pathes.dist %>/styles/<%= pkg.name %>.css':'<%= pathes.src %>/sass/main.scss'
+
+      release:
+        options:
+          trace: true
+          quiet: false
+        files:
+          '<%= pathes.tmp %>/styles/<%= pkg.name %>.css':'<%= pathes.src %>/sass/main.scss'
+
+    # cssmin
+    # ------------------------------------------------------------
+    cssmin:
+      options:
+        banner: '<%=meta.banner%>'
+        keepSpecialComments: '*'
+      release:
+        files:
+          '<%= pathes.dist %>/styles/<%= pkg.name %>.<%= pkg.version %>.min.css': [
+            '<%= pathes.tmp %>/styles/<%= pkg.name %>.css'
+          ]
+
     #  references for index.html
     # ------------------------------------------------------------
 
@@ -209,6 +241,15 @@ module.exports = (grunt) ->
         ]
         options:
           livereload: true
+      sass:
+        files: [
+          '<%= pathes.src %>/sass/**/*.scss'
+        ],
+        tasks: [
+          'sass:debug'
+        ]
+        options:
+          livereload: true
       grunt:
         files: [
           'Gruntfile.coffee'
@@ -236,6 +277,8 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-concat'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
+  grunt.loadNpmTasks 'grunt-contrib-sass'
+  grunt.loadNpmTasks 'grunt-contrib-cssmin'
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-coffeelint'
   grunt.loadNpmTasks 'grunt-html2js'
@@ -251,6 +294,7 @@ module.exports = (grunt) ->
     'coffeelint:app'
     'coffee:app'
     'copy:debugjs'
+    'sass:debug'
   ]
   
   grunt.registerTask 'debug', [
@@ -270,6 +314,8 @@ module.exports = (grunt) ->
     'coffeelint:app'
     'coffee:app'
     'concat:jslib'
+    'sass:release'
+    'cssmin:release'
     'copy:assets'
     'copy:vendor'
     'uglify:release'
