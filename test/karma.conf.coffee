@@ -15,7 +15,6 @@ module.exports = (karma) ->
       'dist/js/ws-slideshow.lib.js'
       'tmp/js/ws-slideshow.js'
       'vendor/angular-mocks/angular-mocks.js'
-      'dist/js/ws-slideshow.*.js'
       'test/unit/**/*.coffee'
     ]
 
