@@ -1,4 +1,5 @@
 angular.module('wsss.app', [
+  'wsss.error'
   'wsss.config'
 ])
 
@@ -8,7 +9,11 @@ angular.module('wsss.app', [
   '$rootScope'
   'ConfigModel'
   '$log'
-  ($rootScope, ConfigModel, $log) ->
+  (
+    $rootScope
+    ConfigModel
+    $log
+  ) ->
     restrict: 'E'
     template: '''
       <div />
@@ -17,7 +22,9 @@ angular.module('wsss.app', [
     compile: (element, attrs)->
       # update ConfigModel
       ConfigModel.json = attrs.json
-      ConfigModel.id = attrs.id
+      ConfigModel.jsonp = attrs.jsonp
+      ConfigModel.xml = attrs.xml
+      ConfigModel.rootElementID = attrs.id
       # update template == lazy instantiating of AppController
       div = element.find 'div'
       div.attr 'ng-controller', 'AppController'
@@ -29,14 +36,27 @@ angular.module('wsss.app', [
 .controller('AppController',[
   '$rootScope'
   '$scope'
-  '$element'
   'ConfigService'
   'ConfigModel'
-  '$log',
-  ($rootScope, $scope, $element, ConfigService, ConfigModel, $log)->
+  'ErrorUtil'
+  '$log'
+  (
+    $rootScope
+    $scope
+    configService
+    configModel
+    errorUtil
+    $log
+  )->
 
     init = ->
-      $log.info "AppController: json #{ConfigModel.json} "
+      $log.info "AppController: json #{configModel.json} "
+      # fetch config data
+      configService
+      .fetch()
+      .then( (data)->
+        $log.info "success"
+      )
 
     init()
 ])
