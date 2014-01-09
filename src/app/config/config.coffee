@@ -1,5 +1,6 @@
 angular.module('wsss.config', [
   'wsss.error'
+  'wsss.slides'
 ])
 
 #  model
@@ -31,12 +32,14 @@ angular.module('wsss.config', [
   '$q'
   '$http'
   'ConfigModel'
+  'AlbumModel'
   'ErrorUtil'
   '$log'
   (
     $q
     $http
     configModel
+    AlbumModel
     errorUtil
     $log
   )->
@@ -60,8 +63,6 @@ angular.module('wsss.config', [
       deferred.promise
 
     fetchJSONPData = (url)->
-      $log.info "fetchJSONPData #{url}"
-
       $http
       .jsonp(url)
       .success((data)->
@@ -76,11 +77,9 @@ angular.module('wsss.config', [
       deferred.promise
 
     fetchXMLData = (url)->
-      $log.info "fetchXMLData #{url}"
-
       $http
       .get(url)
-      .success((data)->
+      .success((data)=>
           configModel.data = parseXML data
           if configModel.data?
             deferred.resolve data
@@ -97,7 +96,29 @@ angular.module('wsss.config', [
       deferred.promise
 
     parseXML = (data)->
-     # TODO: Parse XML Data
+     # TODO: Parse ALL Data
+      parser = new DOMParser()
+      xmlData = parser.parseFromString(data, "application/xml")
+      # parsing albums
+      albumsXML = xmlData.getElementsByTagName('album')
+      albums = []
+      for albumXML in albumsXML
+        album = new AlbumModel()
+
+        slidePath = albumXML.getAttribute "slidePath"
+        album.slidePath = slidePath if slidePath?
+
+        thumbPath = albumXML.getAttribute "thumbPath"
+        album.thumbPath = thumbPath if thumbPath?
+
+        albums.push album
+
+      {
+        albums
+      }
+
+
+
 
 
     service =

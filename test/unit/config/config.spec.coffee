@@ -41,11 +41,13 @@ describe 'module config: ', ->
 
     afterEach ->
       @service = undefined
+      @httpBackend.verifyNoOutstandingRequest()
+      @httpBackend.verifyNoOutstandingExpectation()
 
     it 'is injectable', ->
       expect(@service).to.be.ok
 
-    it 'fetching json and adding result to model', ->
+    it 'fetching JSON and adding result to model', ->
       url = '/any.json'
       result =
         hello: 'world'
@@ -58,7 +60,7 @@ describe 'module config: ', ->
       @httpBackend.flush()
       expect(@configModel.data).to.deep.equal result
 
-    it 'fetching jsonp data and adding result to model', ->
+    it 'fetching JSONP data and adding result to model', ->
       url = '/any.json'
       result =
         hello: 'world'
@@ -70,3 +72,26 @@ describe 'module config: ', ->
       @service.fetch()
       @httpBackend.flush()
       expect(@configModel.data).to.deep.equal result
+
+    it 'fetching and parsing XML data storing into model', ->
+      url = '/any.xml'
+      data = '''
+        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+        <slideshow>
+        <albums>
+          <album slidePath="album1/slides/amrum/" thumbPath="album1/thumbs/amrum/">
+          </album>
+        </slideshow>
+      '''
+
+      @configModel.xml = url
+      @httpBackend.expectGET(url).respond(
+        data
+      )
+      @service.fetch()
+      @httpBackend.flush()
+      expect(@configModel.data.albums.length).to.equal 1
+
+      album = @configModel.data.albums[0]
+      expect(album.slidePath).to.equal "album1/slides/amrum/"
+      expect(album.thumbPath).to.equal "album1/thumbs/amrum/"

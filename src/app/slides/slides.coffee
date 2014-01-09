@@ -19,5 +19,20 @@ angular.module('wsss.slides', [
         $log.info "SlidesController "
 
       init()
+])
+
+.factory('AlbumModel', [
+    '$log'
+    (
+      $log
+    ) ->
+
+      class AlbumModel
+        @thumbPath: ''
+        @thumbPrefix: ''
+        @slidePath: ''
+        @slidePrefix: ''
+
+      AlbumModel
   ]
 )
