@@ -1,6 +1,10 @@
 angular.module('wsss.app', [
+  # common
   'wsss.error'
+  # app
   'wsss.config'
+  'wsss.slides'
+  'wsss.thumbs'
 ])
 
 # directives
@@ -16,19 +20,35 @@ angular.module('wsss.app', [
   ) ->
     restrict: 'E'
     template: '''
-      <div />
+      <div
+        class="wsss-app-container"
+        ng-controller="AppController"
+        >
+        <div
+          class="wsss-slides-container"
+          ng-controller="SlidesController"
+          >
+        slides
+        </div>
+        <div
+          class="wsss-thumbs-container"
+          ng-controller="ThumbsController"
+        >
+        thumbs
+        </div>
+      </div>
     '''
-    scope: false
+    scope: true
     compile: (element, attrs)->
       # update ConfigModel
       ConfigModel.json = attrs.json
       ConfigModel.jsonp = attrs.jsonp
       ConfigModel.xml = attrs.xml
       ConfigModel.rootElementID = attrs.id
-      # update template == lazy instantiating of AppController
-      div = element.find 'div'
-      div.attr 'ng-controller', 'AppController'
-      div.attr 'class', attrs.class
+      # update template
+      div =  element.children(1)
+      div.addClass attrs.class
+      div.addClass 'halligalli'
 ])
 
 # AppController
