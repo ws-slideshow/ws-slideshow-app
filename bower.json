@@ -1,12 +1,14 @@
 {
   "name": "ws-slideshow",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "angular": "1.2.7",
     "angular-resource": "1.2.7",
     "angular-route": "1.2.7",
     "angular-animate": "1.2.7",
     "angular-touch": "1.2.7",
     "Snap.svg": "0.2.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.2.7"
   }
 }
