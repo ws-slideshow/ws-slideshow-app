@@ -50,6 +50,7 @@ module.exports = (grunt) ->
           sourceMap: true
         files:
           '<%= pathes.tmp %>/js/<%= pkg.name %>.js': [
+            '<%= pathes.src %>/common/**/**.coffee'
             '<%= pathes.src %>/app/slides/**/**.coffee'
             '<%= pathes.src %>/app/thumbs/**/**.coffee'
             '<%= pathes.src %>/app/config/**/**.coffee'
@@ -202,6 +203,7 @@ module.exports = (grunt) ->
           '<%= pathes.src %>/app/**/*.coffee'
         ],
         tasks: [
+          'coffeelint:app'
           'coffee:app'
           'copy:debugjs'
         ]
