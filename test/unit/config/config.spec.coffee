@@ -88,5 +88,5 @@ describe 'module config: ', ->
       expect(@configModel.data.albums.length).to.equal 2
 
       album = @configModel.data.albums[0]
-      expect(album.slidePath).to.equal "album1/slides/amrum/"
-      expect(album.thumbPath).to.equal "album1/thumbs/amrum/"
+      expect(album.slidePath).to.equal "slides/album1/"
+      expect(album.thumbPath).to.equal "thumbs/album1/"

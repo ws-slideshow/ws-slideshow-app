@@ -10,43 +10,32 @@ angular.module('wsss.test', [
 
     xmlData: ->
       '''
-      <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-      <slideshow>
-        <!--
+      <?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+      <!--******************************************************************
 
-          WS-Slideshow 2
-          @see: http://www.ws-slideshow.com
+      Erstellt mit dem WS-Slideshow Konfigurator v.2.1
+      http://www.ws-slideshow.com/de/configurator.php
 
-          Standard configuration / Standard Konfiguration
-
-        -->
-        <preferences
-          thumbSize="50"
-          />
-
-        <albums>
-          <album slidePath="album1/slides/amrum/" thumbPath="album1/thumbs/amrum/">
-            <description><![CDATA[Amrum - North Sea (Germany) // Amrum - Nordsee]]></description>
+      *********************************************************************-->
+      <slideshow configurator="2.1">
+        <preferences sec="4" startViewID="1" autoStart="false" hideBar="false" preventFullScreen="false" themeColor="0x00C8FA" bgColor="0x000000" bgAlpha="100" height="600" width="800" slideEffect="random" saveSlide="false" thumbSize="60" thumbsBgColor="0x000000" thumbsBorderColor="0x00CCFF" soundAutoPlay="false" soundPath="" descriptionAlign="top" descriptionBgColor="0x000000" descriptionBgAlpha="40" albumDescriptionTxtColor="0xFFFFFF" albumDescriptionTxtHoverColor="0x000000" albumDescriptionBgColor="0xFFFFFF"/>
+        <albums random="false">
+          <album slidePath="slides/album1/" thumbPath="thumbs/album1/">
+            <description><![CDATA[Album 1]]></description>
             <slides>
-              <slide name="19.jpg" thumbName="thumb_19.jpg">
-                <![CDATA[Amrum - North Sea (Germany) // Amrum - Nordsee]]>
-              </slide>
-              <slide name="18.jpg" thumbName="thumb_18.jpg" />
-              <slide name="0.jpg" thumbName="thumb_0.jpg" />
-              <slide name="1.jpg" thumbName="thumb_1.jpg" />
-              <slide name="2.jpg" thumbName="thumb_2.jpg" />
+              <slide name="0.jpg" thumbName="thumb_0.jpg"><![CDATA[First slide image]]></slide>
+              <slide name="1.jpg" thumbName="thumb_1.jpg"/>
+              <slide name="2.jpg" thumbName="thumb_2.jpg"/>
             </slides>
           </album>
-          <album slidePath="slides/damp/" thumbPath="slides/damp/">
-            <description><![CDATA[Damp - Baltic Sea (Germany) // Damp - Ostsee]]></description>
+          <album slidePath="slides/album2/" thumbPath="slides/album2/">
+            <description><![CDATA[Album 2]]></description>
             <slides>
-              <slide name="8.jpg" thumbName="thumb_8.jpg">
-                <![CDATA[Damp - Baltic Sea (Germany) // Damp - Ostsee]]>
-              </slide>
-              <slide name="9.jpg" thumbName="thumb_9.jpg" />
-              <slide name="2.jpg" thumbName="thumb_2.jpg" />
-              <slide name="3.jpg" thumbName="thumb_3.jpg" />
-              <slide name="4.jpg" thumbName="thumb_4.jpg" />
+              <slide name="3.png" thumbName="thumb_3.jpg"/>
+              <slide name="4.jpg" thumbName="thumb_4.jpg"/>
+              <slide name="5.jpg" thumbName="thumb_5.jpg"/>
+              <slide name="6.jpg" thumbName="thumb_6.jpg"/>
+              <slide name="7.jpg" thumbName="thumb_7.jpg"/>
             </slides>
           </album>
         </albums>
