@@ -1,9 +1,11 @@
 describe 'module config: ', ->
 
   beforeEach module('wsss.config')
+  beforeEach module('wsss.test')
 
   describe 'ConfigModel', ->
-    beforeEach inject ($injector) ->
+    beforeEach inject ($injector, MockFactory) ->
+      @mockFactory = MockFactory
       @model = $injector.get 'ConfigModel'
 
     afterEach ->
@@ -75,22 +77,15 @@ describe 'module config: ', ->
 
     it 'fetching and parsing XML data storing into model', ->
       url = '/any.xml'
-      data = '''
-        <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-        <slideshow>
-        <albums>
-          <album slidePath="album1/slides/amrum/" thumbPath="album1/thumbs/amrum/">
-          </album>
-        </slideshow>
-      '''
+      respondData = @mockFactory.xmlData()
 
       @configModel.xml = url
       @httpBackend.expectGET(url).respond(
-        data
+        respondData
       )
       @service.fetch()
       @httpBackend.flush()
-      expect(@configModel.data.albums.length).to.equal 1
+      expect(@configModel.data.albums.length).to.equal 2
 
       album = @configModel.data.albums[0]
       expect(album.slidePath).to.equal "album1/slides/amrum/"

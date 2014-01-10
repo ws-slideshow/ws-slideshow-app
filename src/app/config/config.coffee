@@ -117,10 +117,6 @@ angular.module('wsss.config', [
         albums
       }
 
-
-
-
-
     service =
       fetch: ->
         $log.info "fetch"

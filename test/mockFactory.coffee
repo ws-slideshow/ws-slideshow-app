@@ -1,0 +1,56 @@
+angular.module('wsss.test', [
+
+])
+
+.factory('MockFactory', [
+  '$log'
+  (
+    $log
+  ) ->
+
+    xmlData: ->
+      '''
+      <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+      <slideshow>
+        <!--
+
+          WS-Slideshow 2
+          @see: http://www.ws-slideshow.com
+
+          Standard configuration / Standard Konfiguration
+
+        -->
+        <preferences
+          thumbSize="50"
+          />
+
+        <albums>
+          <album slidePath="album1/slides/amrum/" thumbPath="album1/thumbs/amrum/">
+            <description><![CDATA[Amrum - North Sea (Germany) // Amrum - Nordsee]]></description>
+            <slides>
+              <slide name="19.jpg" thumbName="thumb_19.jpg">
+                <![CDATA[Amrum - North Sea (Germany) // Amrum - Nordsee]]>
+              </slide>
+              <slide name="18.jpg" thumbName="thumb_18.jpg" />
+              <slide name="0.jpg" thumbName="thumb_0.jpg" />
+              <slide name="1.jpg" thumbName="thumb_1.jpg" />
+              <slide name="2.jpg" thumbName="thumb_2.jpg" />
+            </slides>
+          </album>
+          <album slidePath="slides/damp/" thumbPath="slides/damp/">
+            <description><![CDATA[Damp - Baltic Sea (Germany) // Damp - Ostsee]]></description>
+            <slides>
+              <slide name="8.jpg" thumbName="thumb_8.jpg">
+                <![CDATA[Damp - Baltic Sea (Germany) // Damp - Ostsee]]>
+              </slide>
+              <slide name="9.jpg" thumbName="thumb_9.jpg" />
+              <slide name="2.jpg" thumbName="thumb_2.jpg" />
+              <slide name="3.jpg" thumbName="thumb_3.jpg" />
+              <slide name="4.jpg" thumbName="thumb_4.jpg" />
+            </slides>
+          </album>
+        </albums>
+      </slideshow>
+      '''
+
+])
