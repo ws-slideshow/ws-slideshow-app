@@ -1,6 +1,29 @@
 {
   "preferences": {
-    "thumbSize": 50
+    "thumbSize": 50,
+    "sec": 4,
+    "startViewID": 1,
+    "autoStart": false,
+    "hideBar": true,
+    "preventFullScreen": false,
+    "themeColor": "0x00C8FA",
+    "bgColor": "0x000000",
+    "bgAlpha": 100,
+    "height": 600,
+    "width": 800,
+    "slideEffect": "random",
+    "saveSlide": false,
+    "thumbSize": 60,
+    "thumbsBgColor": "0x000000",
+    "thumbsBorderColor": "0x00CCFF",
+    "soundAutoPlay": false,
+    "soundPath": "",
+    "descriptionAlign": "top",
+    "descriptionBgColor": "0x000000",
+    "descriptionBgAlpha": 40,
+    "albumDescriptionTxtColor": "0xFFFFFF",
+    "albumDescriptionTxtHoverColor": "0x000000",
+    "albumDescriptionBgColor": "0xFFFFFF"
   },
   "albums": [
     {

@@ -33,6 +33,7 @@ angular.module('wsss.app', [
         <div
           class="wsss-thumbs-container"
           ng-controller="ThumbsController"
+          ng-hide="hideBar"
         >
         thumbs
         </div>
@@ -76,6 +77,7 @@ angular.module('wsss.app', [
       .fetch()
       .then( (data)->
         $log.info "success"
+        $rootScope.$broadcast "configLoaded"
       )
 
     init()
