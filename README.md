@@ -12,7 +12,7 @@ Make sure that you have all the following tools installed on your machine:
 
 Install all npm packages:
 
-     npm install
+    npm install
 
 Install all dependencies:
 
@@ -20,12 +20,11 @@ Install all dependencies:
 
 Build dev source:
 
-    grunt
-
+    gulp
 
 Build release version:
 
-    grunt release
+    gulp --release
 
 Open your browser: [127.0.0.1:9001](http://127.0.0.1:9001)
 
