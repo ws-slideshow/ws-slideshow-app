@@ -154,7 +154,7 @@ gulp.task('serve', ->
 
 # default
 # ------------------------------------------------------------
-gulp.task('default', ->
+gulp.task('default', ['clean'], ->
   gulp.run(
     'assets'
     'js'
