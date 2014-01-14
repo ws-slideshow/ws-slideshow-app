@@ -10,14 +10,13 @@ module.exports = (karma) ->
       'sinon'
     ]
 
-    # list of files / patterns to load in the browser
-#    files: [
-#      'dist/js/ws-slideshow.lib.js'
-#      'tmp/js/ws-slideshow.js'
-#      'vendor/angular-mocks/angular-mocks.js'
-#      'test/mockFactory.coffee'
-#      'test/unit/**/*.coffee'
-#    ]
+    plugins: [
+      'karma-mocha'
+      'karma-chai'
+      'karma-sinon'
+      'karma-phantomjs-launcher'
+      'karma-coffee-preprocessor'
+    ]
 
     # list of files to exclude
     exclude: []

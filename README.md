@@ -29,20 +29,8 @@ Open your browser: [127.0.0.1:9001](http://127.0.0.1:9001)
 
 ## Tests
 
-Make sure that you have followed the [build instruction](#build-instruction) above.
-
-Also, [PhantomJS](http://phantomjs.org/) has to be installed on your machine.
-
-Last of all there is [an unfixed issue](https://github.com/lazd/gulp-karma/issues/4) using gulp-karma with additional plugins.
-To fix it, all needed plugins have NOT to be installed into `{project_folder}/node_modules/` but into
-`{project_folder}/node_modules/gulp-karma/node_modules/` as follow:
-
-    cd {project_folder}/node_modules/gulp-karma/node_modules/
-    npm install --save-dev karma-mocha
-    npm install --save-dev karma-chai
-    npm install --save-dev karma-sinon
-    npm install --save-dev karma-phantomjs-launcher
-    npm install --save-dev karma-coffee-preprocessor
+Make sure that you have followed the [build instruction](#build-instruction) above
+and [PhantomJS](http://phantomjs.org/) is installed on your machine.
 
 
 Running unit tests:
