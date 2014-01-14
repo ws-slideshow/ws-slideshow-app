@@ -11,13 +11,13 @@ module.exports = (karma) ->
     ]
 
     # list of files / patterns to load in the browser
-    files: [
-      'dist/js/ws-slideshow.lib.js'
-      'tmp/js/ws-slideshow.js'
-      'vendor/angular-mocks/angular-mocks.js'
-      'test/mockFactory.coffee'
-      'test/unit/**/*.coffee'
-    ]
+#    files: [
+#      'dist/js/ws-slideshow.lib.js'
+#      'tmp/js/ws-slideshow.js'
+#      'vendor/angular-mocks/angular-mocks.js'
+#      'test/mockFactory.coffee'
+#      'test/unit/**/*.coffee'
+#    ]
 
     # list of files to exclude
     exclude: []

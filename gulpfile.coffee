@@ -3,6 +3,7 @@ gulp = require 'gulp'
 gutil = require 'gulp-util'
 clean = require 'gulp-clean'
 coffee = require 'gulp-coffee'
+coffeelint = require 'gulp-coffeelint'
 concat = require 'gulp-concat'
 uglify = require 'gulp-uglify'
 sass = require 'gulp-ruby-sass'
@@ -13,6 +14,7 @@ refresh = require 'gulp-livereload'
 lr = require 'tiny-lr'
 server = lr()
 connect = require 'connect'
+karma = require 'gulp-karma'
 
 runRelease = gulp.env.release
 
@@ -44,6 +46,8 @@ gulp.task('js', ->
     "#{pathes.src}/app/app.coffee",
     "#{pathes.src}/app/#{pkg.name}.coffee"
   ])
+  .pipe(coffeelint())
+  .pipe(coffeelint.reporter())
   .pipe(coffee(
     bare: true
     join: true
@@ -152,6 +156,43 @@ gulp.task('serve', ->
   .listen 9001
 )
 
+# karma
+# ------------------------------------------------------------
+gulp.task('karma', ->
+  testFiles = [
+    "#{pathes.dist}/js/ws-slideshow.lib.js"
+    "#{pathes.dist}/js/ws-slideshow.js"
+    "#{pathes.vendor}/angular-mocks/angular-mocks.js"
+    "#{pathes.test}/mockFactory.coffee"
+    "#{pathes.test}/unit/**/*.coffee"
+  ]
+
+  gulp.src(
+    testFiles
+  )
+  .pipe(karma(
+    configFile: "#{pathes.test}/karma.conf.coffee"
+    action: 'run'
+  ))
+)
+
+# test
+# ------------------------------------------------------------
+gulp.task('test', ['js'], ->
+  gulp.run(
+    'karma'
+  )
+
+  gulp.watch([
+    "#{pathes.src}/**/**.coffee"
+    "#{pathes.test}/**/**.coffee"
+    ], ->
+      gulp.run(
+        'karma'
+      )
+  )
+)
+
 # default
 # ------------------------------------------------------------
 gulp.task('default', ['clean'], ->
@@ -170,6 +211,24 @@ gulp.task('default', ['clean'], ->
     gulp.watch("#{pathes.src}/**/**.coffee", ->
       gulp.run(
         'js'
+      )
+    )
+
+    gulp.watch("#{pathes.vendor}/**/**.js", ->
+      gulp.run(
+        'js-lib'
+      )
+    )
+
+    gulp.watch("#{pathes.src}/sass/**/**.scss", ->
+      gulp.run(
+        'styles'
+      )
+    )
+
+    gulp.watch("#{pathes.src}/app/**/**.html", ->
+      gulp.run(
+        'html'
       )
     )
 )
