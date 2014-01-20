@@ -6,8 +6,8 @@
 
 Make sure that you have all the following tools installed on your machine:
 
-  - [Grunt CLI](http://gruntjs.com/)
-  - [Bower](bower.io)
+  - [Gulp CLI](http://gulpjs.com)
+  - [Bower](http://bower.io)
 
 Install all npm packages:
 
