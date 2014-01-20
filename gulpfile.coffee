@@ -44,18 +44,7 @@ gulp.task('clean', ->
   .pipe(clean())
 )
 
-gulp.task('js-release', ['js', 'js-lib', 'js-templates'], ->
-  console.log "***** js-release *****"
-  gulp.src(distJSFiles)
-  .pipe(concat("#{pkg.name}.#{pkg.version}.min.js"))
-  .pipe(uglify())
-  .pipe(gulp.dest(
-      "#{pathes.dist}/js"
-    ))
-)
-
 gulp.task('clean-non-release-files', ['js-release'], ->
-  console.log "***** clean-non-release *****"
   gulp.src(distJSFiles)
   .pipe(clean())
 )
@@ -107,6 +96,17 @@ gulp.task('js-lib', ->
     ))
 )
 
+# js release
+# ------------------------------------------------------------
+
+gulp.task('js-release', ['js', 'js-lib', 'js-templates'], ->
+  gulp.src(distJSFiles)
+  .pipe(concat("#{pkg.name}.#{pkg.version}.min.js"))
+  .pipe(uglify())
+  .pipe(gulp.dest(
+      "#{pathes.dist}/js"
+    ))
+)
 
 
 # styles
