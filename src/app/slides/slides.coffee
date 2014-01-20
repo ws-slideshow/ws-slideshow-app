@@ -28,11 +28,13 @@ angular.module('wsss.slides', [
     (
       $log
     ) ->
-      model =
-        thumbPath: ''
-        thumbPrefix: ''
-        slidePath: ''
-        slidePrefix: ''
+      class AlbumModel
+        @thumbPath: ''
+        @thumbPrefix: ''
+        @slidePath: ''
+        @slidePrefix: ''
+
+      AlbumModel
   ]
 )
 
