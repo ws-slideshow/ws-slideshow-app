@@ -11,6 +11,9 @@ minifyCSS = require 'gulp-minify-css'
 replace = require 'gulp-replace'
 processhtml = require 'gulp-processhtml'
 refresh = require 'gulp-livereload'
+ngHtml2Js = require 'gulp-ng-html2js'
+minifyHtml = require 'gulp-minify-html'
+rename = require 'gulp-rename'
 lr = require 'tiny-lr'
 server = lr()
 connect = require 'connect'
@@ -25,6 +28,12 @@ pathes =
   test: './test'
   assets: './assets'
 
+distJSFiles = [
+  "#{pathes.dist}/js/#{pkg.name}.lib.js"
+  "#{pathes.dist}/js/#{pkg.name}.tpl.js"
+  "#{pathes.dist}/js/#{pkg.name}.js"
+]
+
 
 # clean
 # ------------------------------------------------------------
@@ -34,6 +43,23 @@ gulp.task('clean', ->
   )
   .pipe(clean())
 )
+
+gulp.task('js-release', ['js', 'js-lib', 'js-templates'], ->
+  console.log "***** js-release *****"
+  gulp.src(distJSFiles)
+  .pipe(concat("#{pkg.name}.#{pkg.version}.min.js"))
+  .pipe(uglify())
+  .pipe(gulp.dest(
+      "#{pathes.dist}/js"
+    ))
+)
+
+gulp.task('clean-non-release-files', ['js-release'], ->
+  console.log "***** clean-non-release *****"
+  gulp.src(distJSFiles)
+  .pipe(clean())
+)
+
 
 # js app
 # ------------------------------------------------------------
@@ -52,10 +78,10 @@ gulp.task('js', ->
     bare: true
     join: true
   ))
-  .pipe(concat("ws-slideshow.js"))
-  .pipe(
-    if runRelease then uglify() else gutil.noop()
-  )
+  .pipe(concat("#{pkg.name}.js"))
+#  .pipe(
+#    if runRelease then uglify() else gutil.noop()
+#  )
   .pipe(gulp.dest(
     "#{pathes.dist}/js"
   ))
@@ -76,9 +102,6 @@ gulp.task('js-lib', ->
     "#{pathes.vendor}/Snap.svg/dist/snap.svg.js"
   ])
   .pipe(concat("ws-slideshow.lib.js"))
-  .pipe(
-      if runRelease then uglify() else gutil.noop()
-    )
   .pipe(gulp.dest(
       "#{pathes.dist}/js"
     ))
@@ -101,6 +124,9 @@ gulp.task('styles', ->
   .pipe(
     if runRelease then minifyCSS() else gutil.noop()
   )
+  .pipe(
+    if runRelease then rename("#{pkg.name}.#{pkg.version}.min.css") else gutil.noop()
+  )
   .pipe(gulp.dest(
     "#{pathes.dist}/styles"
   ))
@@ -108,6 +134,31 @@ gulp.task('styles', ->
     refresh(server)
   )
 )
+
+
+# templates
+# ------------------------------------------------------------
+gulp.task('js-templates', ->
+  gulp.src([
+    "#{pathes.src}/app/**/*.tpl.html"
+  ])
+  .pipe(minifyHtml(
+      empty: true
+      spare: true
+      quotes: true
+    ))
+  .pipe(ngHtml2Js(
+      moduleName: "wsss.templates"
+    ))
+  .pipe(concat("#{pkg.name}.tpl.js"))
+  .pipe(gulp.dest(
+      "#{pathes.dist}/js"
+    ))
+  .pipe(
+      refresh(server)
+    )
+)
+
 
 # assets
 # ------------------------------------------------------------
@@ -160,8 +211,8 @@ gulp.task('serve', ->
 # ------------------------------------------------------------
 gulp.task('karma', ->
   testFiles = [
-    "#{pathes.dist}/js/ws-slideshow.lib.js"
-    "#{pathes.dist}/js/ws-slideshow.js"
+    "#{pathes.dist}/js/#{pkg.name}.lib.js"
+    "#{pathes.dist}/js/#{pkg.name}.js"
     "#{pathes.vendor}/angular-mocks/angular-mocks.js"
     "#{pathes.test}/mockFactory.coffee"
     "#{pathes.test}/unit/**/*.coffee"
@@ -195,19 +246,37 @@ gulp.task('test', ['js'], ->
 
 # default
 # ------------------------------------------------------------
-gulp.task('default', ['clean'], ->
+gulp.task('prepare', ['clean'], ->
   gulp.run(
     'assets'
-    'js'
+    'js-templates'
     'js-lib'
+    'js'
     'styles'
     'html'
-    'lr-server'
-    'serve'
   )
+)
 
-  # watching in debug mode only
-  unless runRelease
+gulp.task('default', ['prepare'], ->
+
+  # TODO:
+  # 1) Better synchronous handling of gulp task
+  # @see: 'Support running task synchronously'
+  # https://github.com/gulpjs/gulp/issues/96
+  # 2) Better task handling without the need of an if/else statement...
+  if runRelease
+    gulp.run(
+      'clean-non-release-files'
+      'js-release'
+      'lr-server',
+      'serve'
+    )
+  else
+    gulp.run(
+      'lr-server',
+      'serve'
+    )
+
     gulp.watch("#{pathes.src}/**/**.coffee", ->
       gulp.run(
         'js'
@@ -217,6 +286,12 @@ gulp.task('default', ['clean'], ->
     gulp.watch("#{pathes.vendor}/**/**.js", ->
       gulp.run(
         'js-lib'
+      )
+    )
+
+    gulp.watch("#{pathes.src}/app/**/**.tpl.html", ->
+      gulp.run(
+        'js-templates'
       )
     )
 
@@ -232,3 +307,5 @@ gulp.task('default', ['clean'], ->
       )
     )
 )
+
+
