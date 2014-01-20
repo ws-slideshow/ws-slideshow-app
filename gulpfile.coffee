@@ -212,6 +212,7 @@ gulp.task('serve', ->
 gulp.task('karma', ->
   testFiles = [
     "#{pathes.dist}/js/#{pkg.name}.lib.js"
+    "#{pathes.dist}/js/#{pkg.name}.tpl.js"
     "#{pathes.dist}/js/#{pkg.name}.js"
     "#{pathes.vendor}/angular-mocks/angular-mocks.js"
     "#{pathes.test}/mockFactory.coffee"
