@@ -21,18 +21,43 @@ angular.module('wsss.slides', [
       init()
 ])
 
+# models
+# ------------------------------------------------------------
 .factory('AlbumModel', [
     '$log'
     (
       $log
     ) ->
-
-      class AlbumModel
-        @thumbPath: ''
-        @thumbPrefix: ''
-        @slidePath: ''
-        @slidePrefix: ''
-
-      AlbumModel
+      model =
+        thumbPath: ''
+        thumbPrefix: ''
+        slidePath: ''
+        slidePrefix: ''
   ]
 )
+
+# directives
+# ------------------------------------------------------------
+.directive('wssSlides', [
+  '$log'
+  (
+    $log
+  ) ->
+    restrict: 'E'
+    templateUrl: 'slides/slides.tpl.html'
+    scope: {}
+    compile: (element, attrs)->
+
+])
+
+.directive('wsssSlide', [
+  '$log'
+  (
+    $log
+  ) ->
+    restrict: 'E'
+    templateUrl: 'slides/slide.tpl.html'
+    scope: {}
+    compile: (element, attrs)->
+
+])

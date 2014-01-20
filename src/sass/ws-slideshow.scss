@@ -8,10 +8,17 @@
   height: 100%;
 }
 
-.wsss-thumbs-container{
+.wsss-thumbs-bar{
   position: absolute;
   width: 100%;
-  height: 100px;
+  height: 10px;
   bottom: 0;
   background-color: darkolivegreen;
+}
+
+.wsss-thumbs-overview{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: lightseagreen;
 }

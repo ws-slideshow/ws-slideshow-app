@@ -7,50 +7,6 @@ angular.module('wsss.app', [
   'wsss.thumbs'
 ])
 
-# directives
-# ------------------------------------------------------------
-.directive('wsSlideshow', [
-  '$rootScope'
-  'ConfigModel'
-  '$log'
-  (
-    $rootScope
-    ConfigModel
-    $log
-  ) ->
-    restrict: 'E'
-    template: '''
-      <div
-        class="wsss-app-container"
-        ng-controller="AppController"
-        >
-        <div
-          class="wsss-slides-container"
-          ng-controller="SlidesController"
-          >
-        slides
-        </div>
-        <div
-          class="wsss-thumbs-container"
-          ng-controller="ThumbsController"
-          ng-hide="hideBar"
-        >
-        thumbs
-        </div>
-      </div>
-    '''
-    scope: true
-    compile: (element, attrs)->
-      # update ConfigModel
-      ConfigModel.json = attrs.json
-      ConfigModel.jsonp = attrs.jsonp
-      ConfigModel.xml = attrs.xml
-      ConfigModel.rootElementID = attrs.id
-      # update template
-      div =  element.children(1)
-      div.addClass attrs.class
-      div.addClass 'halligalli'
-])
 
 # AppController
 # ------------------------------------------------------------
@@ -76,9 +32,43 @@ angular.module('wsss.app', [
       configService
       .fetch()
       .then( (data)->
-        $log.info "success"
-        $rootScope.$broadcast "configLoaded"
-      )
+          $log.info "AppController -> init -> fetch: success"
+          $rootScope.$broadcast "configLoaded"
+        )
 
     init()
+])
+
+# directives
+# ------------------------------------------------------------
+.directive('wsSlideshow', [
+  '$rootScope'
+  'ConfigModel'
+  '$log'
+  (
+    $rootScope
+    configModel
+    $log
+  ) ->
+    restrict: 'E'
+    template: '''
+      <div
+        class="wsss-app-container"
+        >
+        <wss-slides></wss-slides>
+        <wss-thumbs-overview ng-hide="hideThumbsOverview"></wss-thumbs-overview>
+        <wss-thumbs-bar ng-hide="hideBar"></wss-thumbs-bar>
+      </div>
+    '''
+    scope: {}
+    controller: 'AppController'
+    compile: (element, attrs)->
+      # update ConfigModel
+      configModel.json = attrs.json
+      configModel.jsonp = attrs.jsonp
+      configModel.xml = attrs.xml
+      configModel.rootElementID = attrs.id
+      # update template
+      div =  element.children(1)
+      div.addClass attrs.class
 ])
