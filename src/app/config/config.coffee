@@ -31,6 +31,7 @@ angular.module('wsss.config', [
 .factory('ConfigService', [
   '$q'
   '$http'
+  'AppModel'
   'ConfigModel'
   'AlbumModel'
   'ErrorUtil'
@@ -38,6 +39,7 @@ angular.module('wsss.config', [
   (
     $q
     $http
+    appModel
     configModel
     AlbumModel
     errorUtil
@@ -52,7 +54,7 @@ angular.module('wsss.config', [
       $http
       .get(url)
       .success((data)->
-        configModel.data = data
+        appModel.data = data
         deferred.resolve data
       )
       .error((data, status, headers, config)->
@@ -66,7 +68,7 @@ angular.module('wsss.config', [
       $http
       .jsonp(url)
       .success((data)->
-          configModel.data = data
+          appModel.data = data
           deferred.resolve data
         )
       .error((data, status, headers, config)->
@@ -80,8 +82,8 @@ angular.module('wsss.config', [
       $http
       .get(url)
       .success((data)=>
-          configModel.data = parseXML data
-          if configModel.data?
+          appModel.data = parseXML data
+          if appModel.data?
             deferred.resolve data
           else
             message = "Unable to parse XML config file"

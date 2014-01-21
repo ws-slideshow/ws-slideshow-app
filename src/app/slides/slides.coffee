@@ -6,17 +6,41 @@ angular.module('wsss.slides', [
 # controller
 # ------------------------------------------------------------
 .controller('SlidesController',[
+    '$scope'
     'ConfigModel'
+    'AppModelEvents'
+    'AppEvents'
+    'AppModel'
     'ErrorUtil'
     '$log'
     (
+      $scope
       configModel
+      AppModelEvents
+      AppEvents
+      appModel
       errorUtil
       $log
-    )->
+    ) ->
 
       init = ->
-        $log.info "SlidesController "
+        $log.info "SlidesController::init"
+        $scope.$on AppModelEvents.CURRENT_ALBUM_ID_CHANGED, (event, id) ->
+          changeSlideHandler()
+
+        $scope.$on AppModelEvents.CURRENT_SLIDE_ID_CHANGED, (event, id) ->
+          changeSlideHandler()
+
+        if configModel.hasData()
+          changeSlideHandler()
+        else
+          $scope.$on(AppEvents.CONFIG_LOADED, ->
+            changeSlideHandler()
+          )
+
+      changeSlideHandler = ->
+        $log.info "SlidesController::changeSlideHandler #{appModel.currentSlideURL()}"
+
 
       init()
 ])
@@ -33,8 +57,6 @@ angular.module('wsss.slides', [
         @thumbPrefix: ''
         @slidePath: ''
         @slidePrefix: ''
-
-      AlbumModel
   ]
 )
 
@@ -48,18 +70,7 @@ angular.module('wsss.slides', [
     restrict: 'E'
     templateUrl: 'slides/slides.tpl.html'
     scope: {}
-    compile: (element, attrs)->
-
-])
-
-.directive('wsssSlide', [
-  '$log'
-  (
-    $log
-  ) ->
-    restrict: 'E'
-    templateUrl: 'slides/slide.tpl.html'
-    scope: {}
+    controller: 'SlidesController'
     compile: (element, attrs)->
 
 ])

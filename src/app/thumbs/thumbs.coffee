@@ -8,12 +8,16 @@ angular.module('wsss.thumbs', [
 # ------------------------------------------------------------
 .controller('ThumbsBarController',[
   '$scope'
+  'AppModel'
   'ConfigModel'
+  'AppEvents'
   'ErrorUtil'
   '$log'
   (
     $scope
+    appModel
     configModel
+    AppEvents
     errorUtil
     $log
   )->
@@ -24,15 +28,16 @@ angular.module('wsss.thumbs', [
       if configModel.hasData()
         initData()
       else
-        $scope.$on('configLoaded', ->
+        $scope.$on(AppEvents.CONFIG_LOADED, ->
           $log.info "LISTEN configLoaded "
           initData()
         )
 
     initData = ->
-      $log.info configModel.data
-      $scope.hideBar = configModel.data.preferences.hideBar
-      $scope.hideBar = false
+      $log.info appModel.data
+      $scope.barHide = appModel.data.preferences.hideBar
+      $scope.barHide = false
+      $scope.barHeight = "#{appModel.data.preferences.thumbSize + 10}px"
 
     init()
 ])
@@ -59,8 +64,10 @@ angular.module('wsss.thumbs', [
 # directives
 # ------------------------------------------------------------
 .directive('wssThumbsBar', [
+  'AppModel'
   '$log'
   (
+    appModel
     $log
   ) ->
     restrict: 'E'
@@ -68,12 +75,18 @@ angular.module('wsss.thumbs', [
     scope: true
     controller: 'ThumbsBarController'
     compile: (element, attrs)->
+      container =  element.children(1)
+#      $log.error "HTUMB:::"
+      $log.info appModel.data
+#      container.css 'height', "#{appModel.data.preferences.thumbSize}px"
 
 ])
 
 .directive('wssThumbsOverview', [
-  '$log'
+    'ConfigModel'
+    '$log'
   (
+    configModel
     $log
   ) ->
     restrict: 'E'
@@ -81,5 +94,6 @@ angular.module('wsss.thumbs', [
     scope: {}
     controller: 'ThumbsOverviewController'
     compile: (element, attrs)->
+
 
 ])
