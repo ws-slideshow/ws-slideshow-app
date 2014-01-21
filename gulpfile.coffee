@@ -57,6 +57,7 @@ gulp.task('js', ->
     "#{pathes.src}/common/**/**.coffee",
     "#{pathes.src}/app/slides/**/**.coffee",
     "#{pathes.src}/app/thumbs/**/**.coffee",
+    "#{pathes.src}/app/nav/**/**.coffee",
     "#{pathes.src}/app/config/**/**.coffee",
     "#{pathes.src}/app/app.coffee",
     "#{pathes.src}/app/#{pkg.name}.coffee"
