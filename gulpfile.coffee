@@ -84,11 +84,11 @@ gulp.task('js', ->
 gulp.task('js-lib', ->
   gulp.src([
     "#{pathes.vendor}/angular/angular.js"
-    "#{pathes.vendor}/angular-animate/angular-animate.js"
+#    "#{pathes.vendor}/angular-animate/angular-animate.js"
     "#{pathes.vendor}/angular-resource/angular-resource.js"
-    "#{pathes.vendor}/angular-route/angular-route.js"
-    "#{pathes.vendor}/angular-touch/angular-touch.js"
-    "#{pathes.vendor}/Snap.svg/dist/snap.svg.js"
+#    "#{pathes.vendor}/angular-route/angular-route.js"
+#    "#{pathes.vendor}/angular-touch/angular-touch.js"
+#    "#{pathes.vendor}/Snap.svg/dist/snap.svg.js"
   ])
   .pipe(concat("ws-slideshow.lib.js"))
   .pipe(gulp.dest(
