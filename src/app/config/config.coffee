@@ -29,17 +29,17 @@ angular.module('wsss.config', [
 # service
 # ------------------------------------------------------------
 .factory('ConfigService', [
+  '$rootScope'
   '$q'
   '$http'
-  'AppModel'
   'ConfigModel'
   'AlbumModel'
   'ErrorUtil'
   '$log'
   (
+    $rootScope
     $q
     $http
-    appModel
     configModel
     AlbumModel
     errorUtil
@@ -49,13 +49,11 @@ angular.module('wsss.config', [
     deferred = $q.defer()
 
     fetchJSONData = (url)->
-      $log.info "fetchJSONData #{url}"
 
       $http
       .get(url)
-      .success((data)->
-        appModel.data = data
-        deferred.resolve data
+      .success((result)->
+        deferred.resolve result
       )
       .error((data, status, headers, config)->
         deferred.reject data
@@ -67,9 +65,8 @@ angular.module('wsss.config', [
     fetchJSONPData = (url)->
       $http
       .jsonp(url)
-      .success((data)->
-          appModel.data = data
-          deferred.resolve data
+      .success((result)->
+          deferred.resolve result
         )
       .error((data, status, headers, config)->
           deferred.reject data
@@ -81,9 +78,9 @@ angular.module('wsss.config', [
     fetchXMLData = (url)->
       $http
       .get(url)
-      .success((data)=>
-          appModel.data = parseXML data
-          if appModel.data?
+      .success((result)=>
+          data = parseXML result
+          if data?
             deferred.resolve data
           else
             message = "Unable to parse XML config file"
@@ -121,7 +118,6 @@ angular.module('wsss.config', [
 
     service =
       fetch: ->
-        $log.info "fetch"
         if configModel.json?
           promise = fetchJSONData configModel.json
         else if configModel.jsonp?

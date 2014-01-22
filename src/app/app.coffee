@@ -10,24 +10,16 @@ angular.module('wsss.app', [
 
 # models
 # ------------------------------------------------------------
-.constant 'AppModelEvents',
-  CURRENT_ALBUM_ID_CHANGED: 'currentAlbumIDChanged'
-  CURRENT_SLIDE_ID_CHANGED: 'currentSlideIDChanged'
-
 
 .factory('AppModel', [
   '$rootScope'
-  'AppModelEvents'
   '$log'
   (
     $rootScope
-    AppModelEvents
     $log
   ) ->
-    _currentAlbumID = 0
-    _currentSlideID = 0
 
-    # return a model object
+     # return a model object
     model =
       #
       # data
@@ -36,66 +28,48 @@ angular.module('wsss.app', [
         model.data?
       #
       # album
-      setCurrentAlbumID: (id, silence=false)->
-        if _currentAlbumID isnt id
-          _currentAlbumID = id
-          $rootScope.$broadcast AppModelEvents.CURRENT_ALBUM_ID_CHANGED, _currentAlbumID unless silence
-
-      getCurrentAlbumID: ->
-        _currentAlbumID
+      currentAlbumID: 0
       #
       #slides
-      setCurrentSlideID: (id, silence=false)->
-        if _currentSlideID isnt id
-          _currentSlideID = id
-          $rootScope.$broadcast AppModelEvents.CURRENT_SLIDE_ID_CHANGED, _currentSlideID unless silence
-
-      getCurrentSlideID: ->
-        _currentSlideID
+      currentSlideID: 0
 
       currentSlideURL: ->
+        url = ''
         if model.hasData()
-          album = model.data.albums[_currentAlbumID]
-          slide = album.slides[_currentSlideID]
-          return "#{album.slidePath}#{slide.name}"
-        else
-          return null
+          album = model.data.albums[model.currentAlbumID]
+          slide = album.slides[model.currentSlideID]
+          url = "#{album.slidePath}#{slide.name}"
+        url
 
 ])
 
 # AppController
 # ------------------------------------------------------------
 
-.constant 'AppEvents',
-  CONFIG_LOADED: 'configLoaded'
-
 .controller('AppController',[
   '$rootScope'
   '$scope'
   'ConfigService'
-  'ConfigModel'
-  'AppEvents'
+  'AppModel'
   'ErrorUtil'
   '$log'
   (
     $rootScope
     $scope
     configService
-    configModel
-    AppEvents
+    appModel
     errorUtil
     $log
   )->
 
     init = ->
-      $log.info "AppController: json #{configModel.json} "
+      $scope.appModel = appModel
       # fetch config data
       configService
       .fetch()
       .then( (data)->
-          $log.info "AppController -> init -> fetch: success"
-          $rootScope.$broadcast AppEvents.CONFIG_LOADED
-        )
+        $scope.appModel.data = data
+      )
 
     init()
 ])
@@ -125,6 +99,6 @@ angular.module('wsss.app', [
       # update AppModel
       appModel.rootElementID = attrs.id
       # update template
-      div =  element.children(1)
+      div = element.children(1)
       div.addClass attrs.class
 ])

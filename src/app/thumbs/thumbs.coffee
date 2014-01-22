@@ -10,31 +10,30 @@ angular.module('wsss.thumbs', [
   '$scope'
   'AppModel'
   'ConfigModel'
-  'AppEvents'
   'ErrorUtil'
   '$log'
   (
     $scope
     appModel
     configModel
-    AppEvents
     errorUtil
     $log
   )->
 
     init = ->
-      $log.info "ThumbsBarController "
 
-      if configModel.hasData()
-        initData()
+      if appModel.hasData()
+        initConfigData()
       else
-        $scope.$on(AppEvents.CONFIG_LOADED, ->
-          $log.info "LISTEN configLoaded "
-          initData()
-        )
+        unwatch = $scope.$watch 'appModel.data', (newValue, oldValue) ->
+          # ignore call due to initialization
+          if newValue isnt oldValue
+            # unwatch
+            unwatch()
+            initConfigData()
 
-    initData = ->
-      $log.info appModel.data
+
+    initConfigData = ->
       $scope.barHide = appModel.data.preferences.hideBar
       $scope.barHide = false
       $scope.barHeight = "#{appModel.data.preferences.thumbSize + 10}px"
@@ -55,7 +54,7 @@ angular.module('wsss.thumbs', [
     )->
 
       init = ->
-        $log.info "ThumbsOverviewController "
+#        $log.info "ThumbsOverviewController "
 
 
       init()
@@ -76,8 +75,6 @@ angular.module('wsss.thumbs', [
     controller: 'ThumbsBarController'
     compile: (element, attrs)->
       container =  element.children(1)
-#      $log.error "HTUMB:::"
-      $log.info appModel.data
 #      container.css 'height', "#{appModel.data.preferences.thumbSize}px"
 
 ])
@@ -91,7 +88,7 @@ angular.module('wsss.thumbs', [
   ) ->
     restrict: 'E'
     templateUrl: 'thumbs/thumbsoverview.tpl.html'
-    scope: {}
+    scope: true
     controller: 'ThumbsOverviewController'
     compile: (element, attrs)->
 

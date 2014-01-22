@@ -7,17 +7,17 @@ angular.module('wsss.slides', [
 # ------------------------------------------------------------
 .controller('SlidesController',[
     '$scope'
-    'ConfigModel'
-    'AppModelEvents'
-    'AppEvents'
+    '$element'
+    '$attrs'
+    '$transclude'
     'AppModel'
     'ErrorUtil'
     '$log'
     (
       $scope
-      configModel
-      AppModelEvents
-      AppEvents
+      $element
+      $attrs
+      $transclude
       appModel
       errorUtil
       $log
@@ -25,22 +25,6 @@ angular.module('wsss.slides', [
 
       init = ->
         $log.info "SlidesController::init"
-        $scope.$on AppModelEvents.CURRENT_ALBUM_ID_CHANGED, (event, id) ->
-          changeSlideHandler()
-
-        $scope.$on AppModelEvents.CURRENT_SLIDE_ID_CHANGED, (event, id) ->
-          changeSlideHandler()
-
-        if configModel.hasData()
-          changeSlideHandler()
-        else
-          $scope.$on(AppEvents.CONFIG_LOADED, ->
-            changeSlideHandler()
-          )
-
-      changeSlideHandler = ->
-        $log.info "SlidesController::changeSlideHandler #{appModel.currentSlideURL()}"
-
 
       init()
 ])
@@ -63,14 +47,43 @@ angular.module('wsss.slides', [
 # directives
 # ------------------------------------------------------------
 .directive('wssSlides', [
-  '$log'
+    'AppModel'
+    '$log'
   (
+    appModel
     $log
   ) ->
     restrict: 'E'
     templateUrl: 'slides/slides.tpl.html'
-    scope: {}
+    scope: true
     controller: 'SlidesController'
-    compile: (element, attrs)->
+    compile: (element, attrs, transclude)->
+      $log.info "wssSlides::compile"
+
+      postLink = (scope, element, attrs, controller)->
+        $log.info "wssSlides::link"
+        scope.$watch 'appModel.currentAlbumID', (newValue, oldValue) ->
+          # ignore call due to initialization
+          if newValue isnt oldValue
+            changeSlideHandler()
+
+        scope.$watch 'appModel.currentSlideID', (newValue, oldValue) ->
+          # ignore call due to initialization
+          if newValue isnt oldValue
+            changeSlideHandler()
+
+        if appModel.hasData()
+          changeSlideHandler()
+        else
+          unwatch = scope.$watch 'appModel.data', (newValue, oldValue) ->
+            # ignore call due to initialization
+            if newValue isnt oldValue
+              # unwatch
+              unwatch()
+              changeSlideHandler()
+
+        changeSlideHandler = ->
+          $log.info "wssSlides::changeSlideHandler #{appModel.currentSlideURL()}"
+
 
 ])

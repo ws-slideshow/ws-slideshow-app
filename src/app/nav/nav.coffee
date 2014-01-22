@@ -10,28 +10,28 @@ angular.module('wsss.nav', [
 .controller('NavController',[
   '$rootScope'
   '$scope'
-  'AppEvents'
   'AppModel'
   'ConfigModel'
   '$log'
   (
     $rootScope
     $scope
-    AppEvents
     appModel
     configModel
     $log
   )->
 
     init = ->
-      $log.info "NavController::init "
 
-      if configModel.hasData()
+      if appModel.hasData()
         initData()
       else
-        $scope.$on(AppEvents.CONFIG_LOADED, ->
-          initData()
-        )
+        unwatch = $scope.$watch 'appModel.data', (newValue, oldValue) ->
+          # ignore call due to initialization
+          if newValue isnt oldValue
+            # unwatch
+            unwatch()
+            initData()
 
     initData = ->
       $scope.navHeight = "#{appModel.data.preferences.thumbSize + 10}px"
@@ -52,7 +52,7 @@ angular.module('wsss.nav', [
   ) ->
     restrict: 'E'
     templateUrl: 'nav/nav.tpl.html'
-    scope: {}
+    scope: true
     controller: 'NavController'
     compile: (element, attrs)->
 
