@@ -35,6 +35,13 @@ and [PhantomJS](http://phantomjs.org/) is installed on your machine.
 
 Running unit tests:
 
-    gulp test
+    gulp test-unit
+
+
+Running e2e tests:
+
+    gulp serve
+    gulp webdriver
+    gulp test-e2e
 
 
