@@ -209,9 +209,9 @@ gulp.task('serve', ->
   .listen 9001
 )
 
-# karma
+# unit tests
 # ------------------------------------------------------------
-gulp.task('unit', ->
+gulp.task('test-unit',['js', 'js-lib', 'js-templates'], ->
   testFiles = [
     "#{pathes.dist}/js/#{pkg.name}.lib.js"
     "#{pathes.dist}/js/#{pkg.name}.tpl.js"
@@ -228,15 +228,24 @@ gulp.task('unit', ->
     configFile: "#{pathes.test}/karma.conf.coffee"
     action: 'run'
   ))
+
+  gulp.watch([
+    "#{pathes.src}/**/**.coffee"
+    "#{pathes.test}/**/**.coffee"
+  ], ->
+    gulp.run(
+      'karma'
+    )
+  )
 )
 
-# protractor
+# e2e tests
 # ------------------------------------------------------------
 
 webdriver = require("gulp-protractor").webdriver
 gulp.task('webdriver', webdriver)
 
-gulp.task('e2e', ->
+gulp.task('test-e2e', ['js', 'js-lib', 'js-templates'], ->
 
   gulp.src(
     "#{pathes.test}/e2e/**/*.coffee"
@@ -245,24 +254,6 @@ gulp.task('e2e', ->
 #      configFile: "#{pathes.test}/protractor.config.coffee"
       configFile: "#{pathes.test}/protractor.config.js"
     ))
-)
-
-
-# test
-# ------------------------------------------------------------
-gulp.task('test', ['js', 'js-lib', 'js-templates'], ->
-  gulp.run(
-    'unit'
-  )
-
-  gulp.watch([
-    "#{pathes.src}/**/**.coffee"
-    "#{pathes.test}/**/**.coffee"
-    ], ->
-      gulp.run(
-        'karma'
-      )
-  )
 )
 
 # default
