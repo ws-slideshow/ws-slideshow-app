@@ -18,6 +18,7 @@ lr = require 'tiny-lr'
 server = lr()
 connect = require 'connect'
 karma = require 'gulp-karma'
+protractor = require('gulp-protractor').protractor
 
 runRelease = gulp.env.release
 
@@ -205,12 +206,12 @@ gulp.task('html', ->
 gulp.task('serve', ->
   connect()
   .use(connect.static(pathes.dist))
-  .listen 9001
+  .listen 4444
 )
 
 # karma
 # ------------------------------------------------------------
-gulp.task('karma', ->
+gulp.task('unit', ->
   testFiles = [
     "#{pathes.dist}/js/#{pkg.name}.lib.js"
     "#{pathes.dist}/js/#{pkg.name}.tpl.js"
@@ -229,11 +230,30 @@ gulp.task('karma', ->
   ))
 )
 
+# protractor
+# ------------------------------------------------------------
+
+webdriver = require("gulp-protractor").webdriver
+gulp.task('webdriver', webdriver)
+
+gulp.task('e2e', ->
+
+  gulp.src(
+    "#{pathes.test}/e2e/**/*.coffee"
+  )
+  .pipe(protractor(
+#      configFile: "#{pathes.test}/protractor.config.coffee"
+      configFile: "#{pathes.test}/protractor.config.js"
+    ))
+)
+
+
 # test
 # ------------------------------------------------------------
 gulp.task('test', ['js'], ->
   gulp.run(
-    'karma'
+    'unit'
+    'e2e'
   )
 
   gulp.watch([
