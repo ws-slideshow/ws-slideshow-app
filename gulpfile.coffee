@@ -20,7 +20,7 @@ connect = require 'connect'
 karma = require 'gulp-karma'
 protractor = require('gulp-protractor').protractor
 
-runRelease = gulp.env.release
+release = gulp.env.release
 
 pathes =
   src: './src'
@@ -71,7 +71,7 @@ gulp.task('js', ->
   ))
   .pipe(concat("#{pkg.name}.js"))
 #  .pipe(
-#    if runRelease then uglify() else gutil.noop()
+#    if release then uglify() else gutil.noop()
 #  )
   .pipe(gulp.dest(
     "#{pathes.dist}/js"
@@ -119,15 +119,15 @@ gulp.task('styles', ->
   )
   .pipe(sass(
     unixNewlines: true
-#    sourcemap: !runRelease
-    lineNumbers: !runRelease
-    debugInfo: !runRelease
+#    sourcemap: !release
+    lineNumbers: !release
+    debugInfo: !release
   ))
   .pipe(
-    if runRelease then minifyCSS() else gutil.noop()
+    if release then minifyCSS() else gutil.noop()
   )
   .pipe(
-    if runRelease then rename("#{pkg.name}.#{pkg.version}.min.css") else gutil.noop()
+    if release then rename("#{pkg.name}.#{pkg.version}.min.css") else gutil.noop()
   )
   .pipe(gulp.dest(
     "#{pathes.dist}/styles"
@@ -176,7 +176,7 @@ gulp.task('assets', ->
 # livereload
 # ------------------------------------------------------------
 gulp.task('lr-server', ->
-  unless runRelease
+  unless release
     server.listen(35729, (err)->
       if (err)
         return console.log(err)
@@ -190,7 +190,7 @@ gulp.task('html', ->
   )
   .pipe(replace(/__version__/g, pkg.version))
   .pipe(
-    if runRelease
+    if release
     then processhtml(
       'index.html'
     )
@@ -206,7 +206,7 @@ gulp.task('html', ->
 gulp.task('serve', ->
   connect()
   .use(connect.static(pathes.dist))
-  .listen 4444
+  .listen 9001
 )
 
 # karma
@@ -281,12 +281,7 @@ gulp.task('prepare', ['clean'], ->
 
 gulp.task('default', ['prepare'], ->
 
-  # TODO:
-  # 1) Better synchronous handling of gulp task
-  # @see: 'Support running task synchronously'
-  # https://github.com/gulpjs/gulp/issues/96
-  # 2) Better task handling without the need of an if/else statement...
-  if runRelease
+  if release
     gulp.run(
       'clean-non-release-files'
       'js-release'
