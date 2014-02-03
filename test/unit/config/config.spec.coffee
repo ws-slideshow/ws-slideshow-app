@@ -51,42 +51,48 @@ describe 'module config: ', ->
 
     it 'fetching JSON and adding result to model', ->
       url = '/any.json'
-      result =
+      mockdata =
         hello: 'world'
       @configModel.json = url
       @httpBackend.whenGET(url).respond(
         200,
-        result
+        mockdata
       )
-      @service.fetch()
+      @service.fetch().then( (data)->
+        expect(data).to.deep.equal mockdata
+      )
       @httpBackend.flush()
-      expect(@configModel.data).to.deep.equal result
 
     it 'fetching JSONP data and adding result to model', ->
       url = '/any.json'
-      result =
+      mockdata =
         hello: 'world'
       @configModel.jsonp = url
       @httpBackend.whenJSONP(url).respond(
         200,
-        result
+        mockdata
       )
+
       @service.fetch()
+      .then( (data)->
+        expect(data).to.deep.equal mockdata
+      )
       @httpBackend.flush()
-      expect(@configModel.data).to.deep.equal result
 
     it 'fetching and parsing XML data storing into model', ->
       url = '/any.xml'
-      respondData = @mockFactory.xmlData()
+      mockdata = @mockFactory.xmlData()
 
       @configModel.xml = url
       @httpBackend.expectGET(url).respond(
-        respondData
+        mockdata
       )
       @service.fetch()
-      @httpBackend.flush()
-      expect(@configModel.data.albums.length).to.equal 2
+      .then( (data)->
+        expect(data.albums.length).to.equal 2
 
-      album = @configModel.data.albums[0]
-      expect(album.slidePath).to.equal "slides/album1/"
-      expect(album.thumbPath).to.equal "thumbs/album1/"
+        album = data.albums[0]
+        expect(album.slidePath).to.equal "slides/album1/"
+        expect(album.thumbPath).to.equal "thumbs/album1/"
+      )
+      @httpBackend.flush()

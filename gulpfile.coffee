@@ -250,10 +250,9 @@ gulp.task('e2e', ->
 
 # test
 # ------------------------------------------------------------
-gulp.task('test', ['js'], ->
+gulp.task('test', ['js', 'js-lib', 'js-templates'], ->
   gulp.run(
     'unit'
-    'e2e'
   )
 
   gulp.watch([
