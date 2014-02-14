@@ -83,7 +83,8 @@ angular.module('wsss.slides', [
               changeSlideHandler()
 
         changeSlideHandler = ->
-          $log.info "wssSlides::changeSlideHandler #{appModel.currentSlideURL()}"
+          $log.info "wssSlides::changeSlideHandler
+          #{appModel.currentSlideURL()}"
 
 
 ])

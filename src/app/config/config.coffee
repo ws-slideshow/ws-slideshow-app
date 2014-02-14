@@ -75,10 +75,10 @@ angular.module('wsss.config', [
 
       deferred.promise
 
-    fetchXMLData = (url)->
+    fetchXMLData = (url)=>
       $http
       .get(url)
-      .success((result)=>
+      .success((result)->
           data = parseXML result
           if data?
             deferred.resolve data
