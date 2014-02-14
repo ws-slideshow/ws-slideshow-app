@@ -2,8 +2,6 @@
 
 #WS-Slideshow 3
 
-[![Build Status](https://travis-ci.org/ws-slideshow/ws-slideshow-app.png?branch=master)](https://travis-ci.org/ws-slideshow/ws-slideshow-app)
-
 
 ##Build instruction
 
@@ -49,6 +47,5 @@ Running e2e tests:
 
 
 
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ws-slideshow/ws-slideshow-app/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[![Build Status](https://travis-ci.org/ws-slideshow/ws-slideshow-app.png?branch=master)](https://travis-ci.org/ws-slideshow/ws-slideshow-app) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ws-slideshow/ws-slideshow-app/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
