@@ -80,7 +80,7 @@ gulp.task('js', ->
     "#{pathes.dist}/js"
   ))
   .pipe(
-    unless release then refresh(server) else gutil.noop()
+    refresh(server)
   )
 )
 
@@ -139,7 +139,7 @@ gulp.task('styles', ->
     "#{pathes.dist}/styles"
   ))
   .pipe(
-    unless release then refresh(server) else gutil.noop()
+    refresh(server)
   )
 )
 
@@ -164,7 +164,7 @@ gulp.task('js-templates', ->
       "#{pathes.dist}/js"
     ))
   .pipe(
-    unless release then refresh(server) else gutil.noop()
+    refresh(server)
   )
 )
 
@@ -233,7 +233,6 @@ gulp.task('test-unit',['js', 'js-lib', 'js-templates'], ->
   gulp.src(
     testFiles
   )
-  .pipe(plumber())
   .pipe(karma(
     configFile: "#{pathes.test}/karma.conf.coffee"
     action: 'run'
@@ -251,7 +250,6 @@ gulp.task('test-e2e', ['js', 'js-lib', 'js-templates'], ->
   gulp.src(
     "#{pathes.test}/e2e/**/*.coffee"
   )
-  .pipe(plumber())
   .pipe(protractor(
 #      configFile: "#{pathes.test}/protractor.config.coffee"
       configFile: "#{pathes.test}/protractor.config.js"
@@ -274,15 +272,10 @@ gulp.task('prepare', ['clean'], ->
 gulp.task('default', ['prepare'], ->
 
   if release
-    if !!process.env.TRAVIS
-      gulp.run(
-        'js-release'
-      )
-    else
-      gulp.run(
-        'clean-non-release-files'
-        'js-release'
-      )
+    gulp.run(
+      'clean-non-release-files'
+      'js-release'
+    )
 
   else
     gulp.run(
