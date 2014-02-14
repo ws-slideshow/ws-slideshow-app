@@ -77,7 +77,7 @@ gulp.task('js', ->
     "#{pathes.dist}/js"
   ))
   .pipe(
-    refresh(server)
+    unless release then refresh(server) else gutil.noop()
   )
 )
 
@@ -133,7 +133,7 @@ gulp.task('styles', ->
     "#{pathes.dist}/styles"
   ))
   .pipe(
-    refresh(server)
+    unless release then refresh(server) else gutil.noop()
   )
 )
 
@@ -157,8 +157,8 @@ gulp.task('js-templates', ->
       "#{pathes.dist}/js"
     ))
   .pipe(
-      refresh(server)
-    )
+    unless release then refresh(server) else gutil.noop()
+  )
 )
 
 
