@@ -228,15 +228,6 @@ gulp.task('test-unit',['js', 'js-lib', 'js-templates'], ->
     configFile: "#{pathes.test}/karma.conf.coffee"
     action: 'run'
   ))
-
-#  gulp.watch([
-#    "#{pathes.src}/**/**.coffee"
-#    "#{pathes.test}/**/**.coffee"
-#  ], ->
-#    gulp.run(
-#      'karma'
-#    )
-#  )
 )
 
 # e2e tests
@@ -275,8 +266,6 @@ gulp.task('default', ['prepare'], ->
     gulp.run(
       'clean-non-release-files'
       'js-release'
-      'lr-server',
-      'serve'
     )
   else
     gulp.run(
