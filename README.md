@@ -2,6 +2,9 @@
 
 #WS-Slideshow 3
 
+[![Build Status](https://travis-ci.org/ws-slideshow/ws-slideshow-app.png?branch=master)](https://travis-ci.org/ws-slideshow/ws-slideshow-app)
+
+
 ##Build instruction
 
 Make sure that you have all the following tools installed on your machine:
