@@ -263,13 +263,13 @@ gulp.task('prepare', ['clean'], ->
 gulp.task('default', ['prepare'], ->
 
   if release
-    if process.env.TRAVIS
+    if !!process.env.TRAVIS
       gulp.run(
-        'clean-non-release-files'
         'js-release'
       )
     else
       gulp.run(
+        'clean-non-release-files'
         'js-release'
       )
 
