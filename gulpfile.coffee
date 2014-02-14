@@ -229,14 +229,14 @@ gulp.task('test-unit',['js', 'js-lib', 'js-templates'], ->
     action: 'run'
   ))
 
-  gulp.watch([
-    "#{pathes.src}/**/**.coffee"
-    "#{pathes.test}/**/**.coffee"
-  ], ->
-    gulp.run(
-      'karma'
-    )
-  )
+#  gulp.watch([
+#    "#{pathes.src}/**/**.coffee"
+#    "#{pathes.test}/**/**.coffee"
+#  ], ->
+#    gulp.run(
+#      'karma'
+#    )
+#  )
 )
 
 # e2e tests
