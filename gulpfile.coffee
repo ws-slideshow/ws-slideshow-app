@@ -20,6 +20,8 @@ connect = require 'connect'
 karma = require 'gulp-karma'
 protractor = require('gulp-protractor').protractor
 
+plumber = require 'gulp-plumber'
+
 release = gulp.env.release
 
 pathes =
@@ -63,6 +65,7 @@ gulp.task('js', ->
     "#{pathes.src}/app/app.coffee",
     "#{pathes.src}/app/#{pkg.name}.coffee"
   ])
+  .pipe(plumber())
   .pipe(coffeelint())
   .pipe(coffeelint.reporter())
   .pipe(coffee(
@@ -92,6 +95,7 @@ gulp.task('js-lib', ->
 #    "#{pathes.vendor}/angular-touch/angular-touch.js"
 #    "#{pathes.vendor}/Snap.svg/dist/snap.svg.js"
   ])
+  .pipe(plumber())
   .pipe(concat("ws-slideshow.lib.js"))
   .pipe(gulp.dest(
       "#{pathes.dist}/js"
@@ -103,6 +107,7 @@ gulp.task('js-lib', ->
 
 gulp.task('js-release', ['js', 'js-lib', 'js-templates'], ->
   gulp.src(distJSFiles)
+  .pipe(plumber())
   .pipe(concat("#{pkg.name}.#{pkg.version}.min.js"))
   .pipe(uglify())
   .pipe(gulp.dest(
@@ -117,6 +122,7 @@ gulp.task('styles', ->
   gulp.src(
     "#{pathes.src}/sass/#{pkg.name}.scss"
   )
+  .pipe(plumber())
   .pipe(sass(
     unixNewlines: true
 #    sourcemap: !release
@@ -144,6 +150,7 @@ gulp.task('js-templates', ->
   gulp.src([
     "#{pathes.src}/app/**/*.tpl.html"
   ])
+  .pipe(plumber())
   .pipe(minifyHtml(
       empty: true
       spare: true
@@ -168,6 +175,7 @@ gulp.task('assets', ->
   gulp.src(
     "#{pathes.assets}/**"
   )
+  .pipe(plumber())
   .pipe(gulp.dest(
     "#{pathes.dist}/assets"
   ))
@@ -188,6 +196,7 @@ gulp.task('html', ->
   gulp.src(
     "#{pathes.src}/app/index.html"
   )
+  .pipe(plumber())
   .pipe(replace(/__version__/g, pkg.version))
   .pipe(
     if release
@@ -224,6 +233,7 @@ gulp.task('test-unit',['js', 'js-lib', 'js-templates'], ->
   gulp.src(
     testFiles
   )
+  .pipe(plumber())
   .pipe(karma(
     configFile: "#{pathes.test}/karma.conf.coffee"
     action: 'run'
@@ -241,6 +251,7 @@ gulp.task('test-e2e', ['js', 'js-lib', 'js-templates'], ->
   gulp.src(
     "#{pathes.test}/e2e/**/*.coffee"
   )
+  .pipe(plumber())
   .pipe(protractor(
 #      configFile: "#{pathes.test}/protractor.config.coffee"
       configFile: "#{pathes.test}/protractor.config.js"

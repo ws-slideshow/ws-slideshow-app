@@ -41,6 +41,7 @@
     "gulp-rename": "~0.2.2",
     "_protractor": "git://github.com/eddiemonge/protractor.git#master",
     "protractor": "~0.17.0",
-    "gulp-protractor": "0.0.3"
+    "gulp-protractor": "0.0.3",
+    "gulp-plumber": "~0.5.6"
   }
 }
