@@ -48,3 +48,7 @@ Running e2e tests:
     gulp test-e2e
 
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ws-slideshow/ws-slideshow-app/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
