@@ -63,7 +63,11 @@ gulp.task('js', ->
     "#{pathes.src}/app/app.coffee",
     "#{pathes.src}/app/#{pkg.name}.coffee"
   ])
-  .pipe(coffeelint())
+  .pipe(coffeelint(
+      max_line_length:
+        value: 80,
+        level: 'warn'
+    ))
   .pipe(coffeelint.reporter())
   .pipe(coffee(
     bare: true
