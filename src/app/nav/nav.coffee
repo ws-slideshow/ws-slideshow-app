@@ -40,7 +40,7 @@ angular.module('wsss.nav', [
             initData()
 
     initData = ->
-      $scope.navHeight = "#{appModel.getPreferences().thumbSize + NAV_CONFIG.HEIGHT_OFFSET}px"
+      $scope.navHeight = "#{appModel.getPreferences().iconHeight + NAV_CONFIG.HEIGHT_OFFSET}px"
 
     init()
 ])
