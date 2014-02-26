@@ -5,6 +5,10 @@ angular.module('wsss.nav', [
   'wsss.config'
 ])
 
+.constant('NAV_CONFIG',
+  HEIGHT_OFFSET: 10
+)
+
 # controllers
 # ------------------------------------------------------------
 .controller('NavController',[
@@ -12,12 +16,14 @@ angular.module('wsss.nav', [
   '$scope'
   'AppModel'
   'ConfigModel'
+  'NAV_CONFIG'
   '$log'
   (
     $rootScope
     $scope
     appModel
     configModel
+    NAV_CONFIG
     $log
   )->
 
@@ -34,7 +40,7 @@ angular.module('wsss.nav', [
             initData()
 
     initData = ->
-      $scope.navHeight = "#{appModel.data.preferences.thumbSize + 10}px"
+      $scope.navHeight = "#{appModel.getPreferences().thumbSize + NAV_CONFIG.HEIGHT_OFFSET}px"
 
     init()
 ])
