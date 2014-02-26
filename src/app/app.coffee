@@ -41,6 +41,9 @@ angular.module('wsss.app', [
           url = "#{album.slidePath}#{slide.name}"
         url
 
+      getPreferences: ->
+        model.data?.preferences
+
 ])
 
 # AppController
