@@ -13,6 +13,8 @@
     "slideEffect": "random",
     "saveSlide": false,
     "thumbSize": 60,
+    "iconWidth": 48,
+    "iconHeight": 40,
     "thumbsBgColor": "0x000000",
     "thumbsBorderColor": "0x00CCFF",
     "soundAutoPlay": false,
