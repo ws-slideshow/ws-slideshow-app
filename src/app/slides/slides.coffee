@@ -23,10 +23,35 @@ angular.module('wsss.slides', [
       $log
     ) ->
 
-      init = ->
-        $log.info "SlidesController::init"
+      scope = $scope.$new()
+      @init = (element)->
+        @$element = element
+        scope.$watch 'appModel.currentAlbumID', (newValue, oldValue) =>
+          # ignore call due to initialization
+          if newValue isnt oldValue
+            @changeSlideHandler()
 
-      init()
+        scope.$watch 'appModel.currentSlideID', (newValue, oldValue) =>
+          # ignore call due to initialization
+          if newValue isnt oldValue
+            @changeSlideHandler()
+
+        if appModel.hasData()
+          @changeSlideHandler()
+        else
+          unwatch = scope.$watch 'appModel.data', (newValue, oldValue) =>
+            # ignore call due to initialization
+            if newValue isnt oldValue
+              # unwatch
+              unwatch()
+              @changeSlideHandler()
+
+      @changeSlideHandler = ->
+        $log.info "wssSlides::changeSlideHandler #{appModel.currentSlideURL()}"
+        $log.info "wssSlides::changeSlideHandler #{@$element}"
+
+      # return
+      @
 ])
 
 # models
@@ -59,32 +84,10 @@ angular.module('wsss.slides', [
     controller: 'SlidesController'
     compile: (element, attrs, transclude)->
       $log.info "wssSlides::compile"
-
-      postLink = (scope, element, attrs, controller)->
+      postLink = (scope, element, attrs, slidesController)->
         $log.info "wssSlides::link"
-        scope.$watch 'appModel.currentAlbumID', (newValue, oldValue) ->
-          # ignore call due to initialization
-          if newValue isnt oldValue
-            changeSlideHandler()
+        slidesController.init element
 
-        scope.$watch 'appModel.currentSlideID', (newValue, oldValue) ->
-          # ignore call due to initialization
-          if newValue isnt oldValue
-            changeSlideHandler()
-
-        if appModel.hasData()
-          changeSlideHandler()
-        else
-          unwatch = scope.$watch 'appModel.data', (newValue, oldValue) ->
-            # ignore call due to initialization
-            if newValue isnt oldValue
-              # unwatch
-              unwatch()
-              changeSlideHandler()
-
-        changeSlideHandler = ->
-          $log.info "wssSlides::changeSlideHandler
-          #{appModel.currentSlideURL()}"
 
 
 ])
