@@ -5,28 +5,29 @@
 
 ##Build instruction
 
-Make sure that you have all the following tools installed on your machine:
+Make sure all of the following tools have been installed on your machine:
 
   - [Gulp CLI](http://gulpjs.com)
   - [Bower](http://bower.io)
 
-Install all npm packages:
+Install npm packages:
 
     npm install
 
-Install all dependencies:
+Install dependencies:
 
     bower install
 
-Build dev source:
+Run local version:
 
-    gulp
+    gulp local
+
+Your browser will be opened with [127.0.0.1:9001](http://127.0.0.1:9001)
 
 Build release version:
 
-    gulp --release
+    gulp build
 
-Open your browser: [127.0.0.1:9001](http://127.0.0.1:9001)
 
 ## Tests
 
@@ -44,8 +45,4 @@ Running e2e tests:
     gulp serve
     gulp webdriver
     gulp test-e2e
-
-
-
-[![Build Status](https://travis-ci.org/ws-slideshow/ws-slideshow-app.png?branch=master)](https://travis-ci.org/ws-slideshow/ws-slideshow-app) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/ws-slideshow/ws-slideshow-app/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 

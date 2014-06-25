@@ -1,11 +1,13 @@
 
-tmp/
+layout/
+.tmp/
 dist/
-vendor/*
-!vendor/zepto/
+src/vendor/
+!src/vendor/zepto/
 
 node_modules/
 npm-debug.log
+
 .sass-cache
 
 .idea
