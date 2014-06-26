@@ -18,6 +18,6 @@ gulp.task('watch', ['setWatch', 'connect', 'serve'], function () {
 
   gulp.watch(config.assets + '/**', ['copy']);
   gulp.watch(config.styles + '/**/*.scss', ['styles']);
-  gulp.watch(config.scripts + '/**/*.js', ['scripts']);
+  gulp.watch(config.scripts + '/**/*.js', ['browserify']);
   gulp.watch('bower.json', ['wiredep']);
 });

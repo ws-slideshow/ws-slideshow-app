@@ -1,15 +1,27 @@
-var angular = require('angular');
+/** @jsx React.DOM */
+var React = require('react'),
+  App = require('app/app'),
 
-WSSlideshow = (function () {
-  function WSSlideshow(id) {
-    var $container, injector;
-    this.id = id;
-    $container = angular.element(document.querySelector("#" + this.id));
-    injector = angular.bootstrap($container, ["wsss.app"]);
-  }
+  WSSlideshow = {
+    init: function (options) {
 
-  return WSSlideshow;
+      if (Array.isArray(options)) {
+        for (var i = 0; i < options.length; i++) {
+          this.renderComponent(options[i]);
+        }
+      } else {
+        this.renderComponent(options)
+      }
+    },
+    renderComponent: function (options) {
+      var container = document.getElementById(options.id);
+      React.renderComponent(
+        <App elementId={options.id} json={options.json} />,
+        document.getElementById(options.id)
+      );
+    }
+  };
 
-})();
-
-module.exports = WSSlideshow;
+module.exports =
+  window.WSSlideshow =
+    WSSlideshow;

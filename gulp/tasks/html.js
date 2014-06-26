@@ -3,7 +3,8 @@ var gulp = require('gulp'),
   $ = require('gulp-load-plugins')(),
   pkg = require('../../package.json');
 
-gulp.task('html', ['styles', 'scripts'], function () {
+//gulp.task('html', ['styles', 'jshint', 'browserify'], function () {
+gulp.task('html', ['styles', 'browserify'], function () {
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
 

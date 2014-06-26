@@ -1,15 +1,7 @@
 {
   "name": "ws-slideshow",
   "dependencies": {
-    "angular": "1.2.18",
-    "angular-resource": "1.2.18",
-    "angular-route": "1.2.18",
-    "angular-animate": "1.2.18",
-    "angular-touch": "1.2.18",
-    "famous": "~0.2.1",
-    "famous-angular": "~0.0.17"
+    "react": "~0.10.0"
   },
-  "devDependencies": {
-    "angular-mocks": "1.2.18"
-  }
+  "devDependencies": {}
 }

@@ -32,16 +32,19 @@
     "gulp-util": "^2.2.17",
     "jshint-stylish": "^0.2.0",
     "opn": "^0.1.2",
+    "reactify": "^0.13.1",
     "serve-index": "^1.1.4",
     "serve-static": "^1.2.3",
     "wiredep": "^1.8.1"
   },
   "browser": {
-    "angular": "./src/vendor/angular/angular.js",
-    "angular-resource": "./src/vendor/angular-route/angular-resource.js",
-    "angular-route": "./src/vendor/angular-route/angular-route.js",
-    "angular-animate": "./src/vendor/angular-route/angular-animate.js",
-    "angular-touch": "./src/vendor/angular-route/angular-touch.js",
-    "famous/Engine": "./src/vendor/famous-commonjs/core/Engine.js"
+    "react": "./src/vendor/react/react.js",
+    "app": "./src/scripts/app",
+    "common": "./src/scripts/common"
+  },
+  "browserify": {
+    "transform": [
+      "reactify"
+    ]
   }
 }
