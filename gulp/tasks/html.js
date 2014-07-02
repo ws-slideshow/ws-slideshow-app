@@ -12,7 +12,11 @@ gulp.task('html', ['styles', 'browserify'], function () {
     .pipe($.replace(/__version__/g, pkg.version))
     .pipe($.useref.assets({searchPath: '{' + config.tmp + ',' + config.src + '}'}))
     .pipe(jsFilter)
-    .pipe($.uglify())
+    .pipe($.uglify({
+      mangle: {
+        beautify: false
+      }
+    }))
     .pipe(jsFilter.restore())
     .pipe(cssFilter)
     .pipe($.csso())

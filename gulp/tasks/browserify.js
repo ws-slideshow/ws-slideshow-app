@@ -6,7 +6,7 @@ var gulp = require('gulp'),
 gulp.task('browserify', function () {
   return gulp.src(config.scripts + '/main.js')
     .pipe($.browserify({
-      basedir: config.src
+      basedir: config.scripts
     }))
     .pipe($.rename(pkg.name + '.js'))
     .pipe(gulp.dest(config.tmp + '/scripts'))

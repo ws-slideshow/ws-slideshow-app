@@ -12,21 +12,21 @@
   <script>
 
     function onloadHandler() {
-      WSSlideshow.init({
-        id: 'containerA',
-        json: './assets/json/slides.json'
-      });
+//      WSSlideshow.init({
+//        id: 'containerA',
+//        json: './assets/json/slides.json'
+//      });
 
-//      WSSlideshow.init([
-//        {
-//          id: 'containerA',
-//          json: './assets/json/slides.json'
-//        },
-//        {
-//          id: 'containerB',
-//          json: './assets/json/slidesB.json'
-//        }
-//      ]);
+      WSSlideshow.init([
+        {
+          id: 'containerA',
+          json: './assets/json/slides.json'
+        },
+        {
+          id: 'containerB',
+          json: './assets/json/slidesB.json'
+        }
+      ]);
     }
 
   </script>
@@ -55,9 +55,10 @@
     ></div>
 <!--data-xml="./assets/xml/slides.xml"-->
 
-<!-- build:js js/ws-slideshow.__version__.min.js -->
+<!-- build:js scripts/ws-slideshow.__version__.min.js -->
 <!-- bower:js -->
-<script src="vendor/react/react.js"></script>
+<script src="vendor/react/react-with-addons.js"></script>
+<script src="vendor/fluxxor/build/fluxxor.js"></script>
 <!-- endbower -->
 <script type="text/javascript" src="scripts/ws-slideshow.js"></script>
 <!-- endbuild -->

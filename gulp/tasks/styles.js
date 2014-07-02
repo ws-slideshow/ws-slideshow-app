@@ -10,6 +10,6 @@ gulp.task('styles', function () {
       precision: 10
     }))
     .pipe($.autoprefixer('last 1 version'))
-    .pipe(gulp.dest(config.tmp + '/styles'))
+    .pipe(gulp.dest(config.tmp + '/styles/'))
     .pipe($.size());
 });

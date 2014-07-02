@@ -1,7 +1,8 @@
 {
   "name": "ws-slideshow",
   "dependencies": {
-    "react": "~0.10.0"
+    "react": "~0.10.0",
+    "fluxxor": "~1.2.2"
   },
   "devDependencies": {}
 }

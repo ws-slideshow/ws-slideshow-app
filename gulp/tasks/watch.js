@@ -2,18 +2,16 @@ var gulp = require('gulp'),
   config = require('../config'),
   $ = require('gulp-load-plugins')();
 
-gulp.task('watch', ['setWatch', 'connect', 'serve'], function () {
-
-  var server = $.livereload();
+gulp.task('watch', ['build', 'connect', 'serve'], function () {
 
   // watch for changes
 
   gulp.watch([
       config.src + '/*.html',
       config.tmp + '/styles/**/*.css',
-      config.scripts + '/**/*.js'
+      config.tmp + '/scripts/**/*.js'
   ]).on('change', function (file) {
-    server.changed(file.path);
+    $.livereload().changed(file.path);
   });
 
   gulp.watch(config.assets + '/**', ['copy']);

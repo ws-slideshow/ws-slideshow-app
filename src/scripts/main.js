@@ -1,8 +1,12 @@
 /** @jsx React.DOM */
 var React = require('react'),
-  App = require('app/app'),
+  Fluxxor = require('fluxxor'),
+  AppStore = require('./app/app-store'),
+  AppActions = require('./app/app-actions')
+  App = require('./app/app'),
 
   WSSlideshow = {
+
     init: function (options) {
 
       if (Array.isArray(options)) {
@@ -13,12 +17,27 @@ var React = require('react'),
         this.renderComponent(options)
       }
     },
+
     renderComponent: function (options) {
-      var container = document.getElementById(options.id);
-      React.renderComponent(
-        <App elementId={options.id} json={options.json} />,
-        document.getElementById(options.id)
-      );
+
+      var container = document.getElementById(options.id),
+      actions = {
+        loadData: function(url, index) {
+          this.dispatch("ADD_URL", {url: url, index: index});
+        }
+      },
+        appactions = AppActions,
+        stores = {
+          AppStore: new AppStore({
+            elementId: options.id
+          })
+        };
+        var flux = new Fluxxor.Flux(stores, appactions);
+      //
+      // render app
+      React.renderComponent(<App flux={flux} />, container);
+      //
+      flux.actions.loadData(options.json);
     }
   };
 
