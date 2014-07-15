@@ -20,7 +20,7 @@ Install dependencies:
 
 Run local version:
 
-    gulp local
+    gulp watch
 
 Your browser will be opened with [127.0.0.1:9001](http://127.0.0.1:9001)
 

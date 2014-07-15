@@ -1,46 +1,43 @@
-/** @jsx React.DOM */
-var React = require('react'),
-  Fluxxor = require('fluxxor'),
-  AppStore = require('./app/app-store'),
-  AppActions = require('./app/app-actions')
-  App = require('./app/app'),
+/** @jsx m */
+'use strict';
+
+var m = require('mithril'),
+  AppController = require('./app/app-controller'),
+  AppView = require('./app/app-view'),
+  AppModel = require('./app/app-model'),
 
   WSSlideshow = {
 
     init: function (options) {
-
+      //
+      // TODO: Should we use a polyfill to support older browsers?
+      // Polyfill https://developer.mozilla.org/de/docs/JavaScript/Reference/Global_Objects/Array/isArray#Compatibility
       if (Array.isArray(options)) {
         for (var i = 0; i < options.length; i++) {
-          this.renderComponent(options[i]);
+          this.initModule(options[i]);
         }
       } else {
-        this.renderComponent(options)
+        this.initModule(options);
       }
     },
 
-    renderComponent: function (options) {
-
-      var container = document.getElementById(options.id),
-      actions = {
-        loadData: function(url, index) {
-          this.dispatch("ADD_URL", {url: url, index: index});
-        }
-      },
-        appactions = AppActions,
-        stores = {
-          AppStore: new AppStore({
-            elementId: options.id
-          })
+    initModule: function (options) {
+      var
+        element = document.getElementById(options.id),
+        model = new AppModel(),
+        controller = function () {},
+        view = function (ctrl) {
+          return AppView(new AppController(model, element))
         };
-        var flux = new Fluxxor.Flux(stores, appactions);
-      //
-      // render app
-      React.renderComponent(<App flux={flux} />, container);
-      //
-      flux.actions.loadData(options.json);
+
+      // module
+      m.module(element, {
+        controller: controller,
+        view: view
+      });
+      // fetch data
+      model.fetchJSONData(options.json);
     }
   };
 
-module.exports =
-  window.WSSlideshow =
-    WSSlideshow;
+module.exports = window.WSSlideshow = WSSlideshow;
