@@ -10,5 +10,4 @@ before_install:
   - bower install
 
 script:
-  - gulp --release
-  - gulp test-unit
+  - gulp --build

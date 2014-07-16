@@ -37,12 +37,9 @@ and [PhantomJS](http://phantomjs.org/) is installed on your machine.
 
 Running unit tests:
 
-    gulp test-unit
+_coming_soon_
 
 
 Running e2e tests:
 
-    gulp serve
-    gulp webdriver
-    gulp test-e2e
-
+_coming_soon_
