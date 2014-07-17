@@ -52,5 +52,5 @@ _coming_soon_
 [travis-image]: https://travis-ci.org/ws-slideshow/ws-slideshow-app.svg?branch=master
 [daviddm-url]: https://david-dm.org/ws-slideshow/ws-slideshow-app.svg?theme=shields.io
 [daviddm-image]: https://david-dm.org/ws-slideshow/ws-slideshow-app
-[daviddm-url-dev]: https://david-dm.org/ws-slideshow/ws-slideshow-app.svg#info=devDependencies
-[daviddm-image-dev]: https://david-dm.org/ws-slideshow/ws-slideshow-app/dev-status.svg
+[daviddm-url-dev]: https://david-dm.org/ws-slideshow/ws-slideshow-app/dev-status.svg
+[daviddm-image-dev]: https://david-dm.org/ws-slideshow/ws-slideshow-app#info=devDependencies
