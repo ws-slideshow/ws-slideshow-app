@@ -2,6 +2,7 @@
 
 #WS-Slideshow 3
 
+[![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-url]][daviddm-image]
 
 ##Build instruction
 
@@ -43,3 +44,9 @@ _coming_soon_
 Running e2e tests:
 
 _coming_soon_
+
+
+[travis-url]: https://travis-ci.org/ws-slideshow/ws-slideshow-app
+[travis-image]: https://travis-ci.org/ws-slideshow/ws-slideshow-app.svg?branch=master
+[daviddm-url]: https://david-dm.org/ws-slideshow/ws-slideshow-app.svg?theme=shields.io
+[daviddm-image]: https://david-dm.org/ws-slideshow/ws-slideshow-app
