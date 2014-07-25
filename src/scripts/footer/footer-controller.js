@@ -10,7 +10,6 @@ var m = require('mithril'),
     };
 
     this.add = function (value) {
-      console.log("value " + value);
       this.model.countValue(this.model.countValue() + value);
     };
   };

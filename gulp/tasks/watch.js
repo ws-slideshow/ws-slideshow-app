@@ -8,7 +8,7 @@ gulp.task('watch', ['build', 'connect', 'serve'], function () {
 
   gulp.watch([
       config.src + '/*.html',
-      config.tmp + '/styles/**/*.css',
+      config.tmp + '/styles/*.css',
       config.tmp + '/scripts/**/*.js'
   ]).on('change', function (file) {
     $.livereload().changed(file.path);

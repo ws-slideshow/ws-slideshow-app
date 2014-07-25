@@ -8,6 +8,7 @@ var m = require('mithril'),
     this.element = undefined;
     this.data = m.prop({});
     this.countValue = m.prop(0);
+    this.selectedSlideID = m.prop(0);
 
     this.loading = m.prop(true);
 

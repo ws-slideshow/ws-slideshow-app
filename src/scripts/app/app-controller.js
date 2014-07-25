@@ -26,13 +26,6 @@ var m = require('mithril'),
       this.model.countValue(newValue);
     };
 
-    this.init2 = function(){
-      console.log("init2");
-//      model.fetchJSONData();
-    };
-
-    this.init2();
-
   };
 
 module.exports = AppController;
