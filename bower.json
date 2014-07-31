@@ -1,7 +1,5 @@
 {
   "name": "ws-slideshow",
-  "dependencies": {
-    "mithril": "~0.1.19"
-  },
+  "dependencies": {},
   "devDependencies": {}
 }

@@ -19,13 +19,14 @@
 
       WSSlideshow.init([
         {
-          id: 'containerA',
-          json: './json/slides.json'
-        },
-        {
-          id: 'containerB',
+          element: '#containerA',
           json: './json/slides.json'
         }
+//        ,
+//        {
+//          element: '#containerB',
+//          json: './json/slides.json'
+//        }
       ]);
     }
 
@@ -56,9 +57,6 @@
 <!--data-xml="./assets/xml/slides.xml"-->
 
 <!-- build:js scripts/ws-slideshow.__version__.min.js -->
-<!-- bower:js -->
-<script src="vendor/mithril/mithril.min.js"></script>
-<!-- endbower -->
 <script type="text/javascript" src="scripts/ws-slideshow.js"></script>
 <!-- endbuild -->
 

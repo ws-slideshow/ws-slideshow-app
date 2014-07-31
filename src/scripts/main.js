@@ -1,10 +1,8 @@
 /** @jsx m */
 'use strict';
 
-var m = require('mithril'),
-  AppController = require('./app/app-controller'),
-  AppView = require('./app/app-view'),
-  AppModel = require('./app/app-model'),
+var Vue = require('vue'),
+  request = require('superagent'),
 
   WSSlideshow = {
 
@@ -14,29 +12,65 @@ var m = require('mithril'),
       // Polyfill https://developer.mozilla.org/de/docs/JavaScript/Reference/Global_Objects/Array/isArray#Compatibility
       if (Array.isArray(options)) {
         for (var i = 0; i < options.length; i++) {
-          this.initModule(options[i]);
+          this.initComponents(options[i]);
         }
       } else {
-        this.initModule(options);
+        this.initComponents(options);
       }
     },
 
-    initModule: function (options) {
-      var
-        element = document.getElementById(options.id),
-        model = new AppModel(),
-        controller = function () {},
-        view = function (ctrl) {
-          return AppView(new AppController(model, element))
-        };
+    initComponents: function (options) {
 
-      // module
-      m.module(element, {
-        controller: controller,
-        view: view
-      });
-      // fetch data
-      model.fetchJSONData(options.json);
+      new Vue({
+        el: options.element,
+        components: {
+          preloader: require('./preloader'),
+          slides: require('./slides'),
+          footer: require('./footer')
+        },
+        template: require('./main.html'),
+
+        data: {
+          title: 'Hello WS-Slideshow & Vue.js!',
+          element: undefined,
+          json: undefined,
+          countValue: -1,
+          selectedSlideID: -1,
+          loading: true
+        },
+
+        ready: function () {
+
+          console.log("MAIN countValue " + this.countValue);
+
+          this.$watch('countValue', function (value) {
+            console.log("WATCH value  ");
+            console.log(value);
+          });
+
+          // load data
+          this.fetchJSONData(options.json);
+
+        },
+
+        methods: {
+          fetchJSONData: function (url) {
+            this.loading = true;
+            console.log("url " + url);
+            var self = this;
+            request.get(url, function (err, data) {
+              if (err) {
+                throw err;
+              } else {
+                self.data = data;
+                self.loading = false;
+              }
+
+            });
+          }
+        }
+      })
+
     }
   };
 
