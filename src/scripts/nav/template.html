@@ -1,0 +1,12 @@
+<div>
+  <button
+      v-attr="disabled: !$root.hasPrevSlide"
+      v-on="click: prev">
+    {{labelPrev}}
+  </button>
+  <button
+      v-attr="disabled: !$root.hasNextSlide"
+      v-on="click: next">
+    {{labelNext}}
+  </button>
+</div>

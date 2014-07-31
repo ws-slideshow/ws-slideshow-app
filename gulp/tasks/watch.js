@@ -17,5 +17,6 @@ gulp.task('watch', ['build', 'connect', 'serve'], function () {
   gulp.watch(config.assets + '/**', ['copy']);
   gulp.watch(config.styles + '/**/*.scss', ['styles']);
   gulp.watch(config.scripts + '/**/*.js', ['browserify']);
+  gulp.watch(config.scripts + '/**/*.html', ['browserify']);
   gulp.watch('bower.json', ['wiredep']);
 });
