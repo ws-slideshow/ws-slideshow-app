@@ -2,11 +2,15 @@
   "preferences": {
     "sec": 2
   },
+  "albumsPreferences": {
+    "loop": true
+  },
   "albums": [
     {
       "slidePath": "slides/amrum/",
       "thumbPath": "slides/amrum/",
       "description": "Amrum - North Sea (Germany) // Amrum - Nordsee",
+      "loop": false,
       "slides": [
         {
           "name": "18.jpg",
