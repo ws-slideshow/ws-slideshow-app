@@ -4,7 +4,7 @@ var gulp = require('gulp'),
 
 gulp.task('jshint', function () {
   return gulp.src([
-      config.scripts + '/**/*.js',
+      config.app + '/**/*.js',
     './Gulpfile.js'
   ])
     .pipe($.jshint())

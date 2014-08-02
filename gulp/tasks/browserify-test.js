@@ -3,12 +3,12 @@ var gulp = require('gulp'),
   $ = require('gulp-load-plugins')(),
   pkg = require('../../package.json');
 
-gulp.task('browserify', function () {
-  return gulp.src(config.app + '/boot.js')
+gulp.task('browserify-test', function () {
+  return gulp.src(config.app + '/**/*.spec.js')
     .pipe($.browserify({
       basedir: config.app
     }))
-    .pipe($.rename(pkg.name + '.js'))
+    .pipe($.rename(pkg.name + '.spec.js'))
     .pipe(gulp.dest(config.tmp + '/app'))
     .pipe($.size())
 });

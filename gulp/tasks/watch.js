@@ -9,14 +9,14 @@ gulp.task('watch', ['build', 'connect', 'serve'], function () {
   gulp.watch([
       config.src + '/*.html',
       config.tmp + '/styles/*.css',
-      config.tmp + '/scripts/**/*.js'
+      config.tmp + '/app/**/*.js'
   ]).on('change', function (file) {
     $.livereload().changed(file.path);
   });
 
   gulp.watch(config.assets + '/**', ['copy']);
   gulp.watch(config.styles + '/**/*.scss', ['styles']);
-  gulp.watch(config.scripts + '/**/*.js', ['browserify']);
-  gulp.watch(config.scripts + '/**/*.html', ['browserify']);
+  gulp.watch(config.app + '/**/*.js', ['browserify']);
+  gulp.watch(config.app + '/**/*.html', ['browserify']);
   gulp.watch('bower.json', ['wiredep']);
 });

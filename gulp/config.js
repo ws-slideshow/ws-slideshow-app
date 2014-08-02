@@ -4,7 +4,7 @@ module.exports = {
   assets: './assets',
   dist: './dist',
   src: './src',
-  scripts: './src/scripts',
+  app: './src/app',
   styles: './src/styles',
   test: './test',
   tmp: './.tmp',

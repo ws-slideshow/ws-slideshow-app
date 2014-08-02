@@ -3,13 +3,15 @@ module.exports = {
   frameworks: [
     'mocha',
     'chai',
-    'sinon'
+    'sinon',
+    'browserify'
   ],
 
   plugins: [
     'karma-mocha',
     'karma-chai',
     'karma-sinon',
+    'karma-browserify',
     'karma-phantomjs-launcher'
   ],
 
@@ -29,6 +31,7 @@ module.exports = {
   browsers: [
     'PhantomJS'
   ],
+
   captureTimeout: 5000,
   singleRun: true
 
