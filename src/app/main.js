@@ -15,7 +15,6 @@ module.exports = Vue.extend({
   // default data
   data: {
     json: './slides.json',
-    options: {},
     loading: true,
     albumsPreferences: {
       loop: false
