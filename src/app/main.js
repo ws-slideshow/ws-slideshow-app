@@ -123,7 +123,9 @@ module.exports = Vue.extend({
         if (err) {
           error.show("Error loading JSON file", err);
         } else {
-          self.addData(data.body);
+          if(data.body){
+            self.addData(data.body);
+          }
           self.loading = false;
         }
 
@@ -131,9 +133,9 @@ module.exports = Vue.extend({
     },
 
     addData: function (data) {
-      self.preferences = util.mergeObject(self.preferences, data.preferences);
-      self.albumsPreferences = util.mergeObject(self.albumsPreferences, data.albumsPreferences);
-      self.albums = data.albums;
+      this.preferences = util.mergeObject(this.preferences, data.preferences);
+      this.albumsPreferences = util.mergeObject(this.albumsPreferences, data.albumsPreferences);
+      this.albums = data.albums;
     },
 
     // albums
