@@ -8,20 +8,19 @@ gulp.task('html', ['styles', 'browserify'], function () {
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
 
+  var assets = $.useref.assets({searchPath: '{' + config.tmp + ',' + config.src + '}'});
+
   return gulp.src(config.src + '/index.html')
     .pipe($.replace(/__version__/g, pkg.version))
-    .pipe($.useref.assets({searchPath: '{' + config.tmp + ',' + config.src + '}'}))
-    .pipe(jsFilter)
-    .pipe($.uglify({
-      mangle: {
-        beautify: false
-      }
-    }))
-    .pipe(jsFilter.restore())
-    .pipe(cssFilter)
-    .pipe($.csso())
-    .pipe(cssFilter.restore())
-    .pipe($.useref.restore())
+    .pipe(assets)
+    .pipe($.if('*.js',
+      $.uglify({
+        mangle: {
+          beautify: false
+        }
+      })))
+    .pipe($.if('*.css', $.csso()))
+    .pipe(assets.restore())
     .pipe($.useref())
     .pipe(gulp.dest(config.dist))
     .pipe($.size());
