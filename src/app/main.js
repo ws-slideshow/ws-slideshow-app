@@ -68,11 +68,26 @@ module.exports = Vue.extend({
     },
 
     hasNextAlbum: function () {
-      return this.albumIndex < this.albums.length - 1;
+      var result = this.albumIndex < this.maxAlbumIndex;
+      // check loop option, too
+      if (!result) {
+        result = !!this.albumsPreferences.loop
+      }
+      return result;
     },
 
     hasPrevAlbum: function () {
-      return this.albumIndex > 0;
+      var result = this.albumIndex > 0;
+      // check loop option, too
+      if (!result) {
+        result = !!this.albumsPreferences.loop
+      }
+      return result;
+    },
+
+
+    maxAlbumIndex: function () {
+      return this.albums.length - 1;
     },
 
     // slides
@@ -103,7 +118,6 @@ module.exports = Vue.extend({
       return this.slideIndex > 0;
     },
 
-
     maxSlideIndex: function () {
       return this.currentAlbum.slides.length - 1;
     }
@@ -122,7 +136,7 @@ module.exports = Vue.extend({
         if (err) {
           error.show("Error loading JSON file", err);
         } else {
-          if(data.body){
+          if (data.body) {
             self.addData(data.body);
           }
           self.loading = false;
@@ -142,14 +156,26 @@ module.exports = Vue.extend({
 
     nextAlbum: function () {
       if (!!this.hasNextAlbum) {
-        this.albumIndex += 1;
-        this.slideIndex = 0;
+        // check max album index
+        if (this.albumIndex == this.maxAlbumIndex) {
+          if (this.albumsPreferences.loop) {
+            this.albumIndex = 0;
+          }
+        } else {
+          this.albumIndex += 1;
+        }
       }
     },
 
     prevAlbum: function () {
       if (!!this.hasPrevAlbum) {
-        this.albumIndex -= 1;
+        if (this.albumIndex === 0) {
+          if (!!this.albumsPreferences.loop) {
+            this.albumIndex = this.albums.length - 1;
+          }
+        } else {
+          this.albumIndex -= 1;
+        }
       }
     },
 
@@ -193,15 +219,15 @@ module.exports = Vue.extend({
   ready: function () {
 
     this.$watch('slideIndex', function (value) {
-      console.log("WATCHING slideIndex " + value);
+//      console.log("WATCHING slideIndex " + value);
     });
 
     this.$watch('albumIndex', function (value) {
-      console.log("WATCHING albumIndex " + value);
+//      console.log("WATCHING albumIndex " + value);
     });
 
     // load data
     this.fetchJSONData(this.json);
-
   }
-});
+})
+;

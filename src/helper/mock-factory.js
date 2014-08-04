@@ -2,7 +2,7 @@ module.exports = {
 
   createAlbumsPreferences: function () {
     return {
-      loop: true
+      loop: false
     }
   },
 
