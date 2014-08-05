@@ -1,1 +1,10 @@
-<div class="wsss-slides-holder"></div>
+<div class="wsss-slides-holder">
+
+  <!--<h3>{{$root.albumDescription}}</h3>-->
+  <h3>{{albumDescription}}</h3>
+  <p>{{slideDescription}}</p>
+  <img
+      class="wsss-slide"
+       v-attr="src: slidePath"
+      />
+</div>

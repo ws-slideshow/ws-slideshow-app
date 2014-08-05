@@ -85,7 +85,6 @@ module.exports = Vue.extend({
       return result;
     },
 
-
     maxAlbumIndex: function () {
       return this.albums.length - 1;
     },
@@ -106,7 +105,7 @@ module.exports = Vue.extend({
         && this.currentAlbum.slides
         && this.slideIndex < this.currentAlbum.slides.length - 1;
 
-      // check loop option, too
+      // check loop options, too
       if (!result) {
         result = !!this.albumsPreferences.loop || !!this.currentAlbum.loop
       }
@@ -115,7 +114,12 @@ module.exports = Vue.extend({
     },
 
     hasPrevSlide: function () {
-      return this.slideIndex > 0;
+      var result = this.slideIndex > 0;
+      // check loop options, too
+      if (!result) {
+        result = !!this.albumsPreferences.loop || !!this.currentAlbum.loop
+      }
+      return result;
     },
 
     maxSlideIndex: function () {
@@ -156,11 +160,9 @@ module.exports = Vue.extend({
 
     nextAlbum: function () {
       if (!!this.hasNextAlbum) {
-        // check max album index
-        if (this.albumIndex == this.maxAlbumIndex) {
-          if (this.albumsPreferences.loop) {
-            this.albumIndex = 0;
-          }
+        // check max album index (loop only)
+        if (this.albumIndex === this.maxAlbumIndex) {
+          this.albumIndex = 0;
         } else {
           this.albumIndex += 1;
         }
@@ -170,9 +172,7 @@ module.exports = Vue.extend({
     prevAlbum: function () {
       if (!!this.hasPrevAlbum) {
         if (this.albumIndex === 0) {
-          if (!!this.albumsPreferences.loop) {
-            this.albumIndex = this.albums.length - 1;
-          }
+          this.albumIndex = this.albums.length - 1;
         } else {
           this.albumIndex -= 1;
         }
@@ -184,20 +184,20 @@ module.exports = Vue.extend({
 
     /**
      * Triggers next slide index.
+     *
      * If not a next slide is available
-     * it checks the loop options of current album
-     * or all albums, too.
+     * it checks the loop options of the current album
+     * or of all albums to set the slide index.
      */
     nextSlide: function () {
       if (!!this.hasNextSlide) {
         // check max slide index
-        if (this.slideIndex == this.maxSlideIndex) {
-          if (!!this.currentAlbum.loop) {
-            this.slideIndex = 0;
-          } else if (!!this.albumsPreferences.loop) {
-            this.slideIndex = 0;
+        if (this.slideIndex === this.maxSlideIndex) {
+          // Note: check update of album before setting slideIndex
+          if (!!this.albumsPreferences.loop) {
             this.nextAlbum();
           }
+          this.slideIndex = 0;
         } else {
           this.slideIndex += 1;
         }
@@ -206,11 +206,14 @@ module.exports = Vue.extend({
 
     prevSlide: function () {
       if (!!this.hasPrevSlide) {
-        this.slideIndex -= 1;
-      } else {
-        if (!!this.hasPrevAlbum) {
-          this.prevAlbum();
+        if (this.slideIndex === 0) {
+          // Note: check update of album before setting slideIndex
+          if (!!this.albumsPreferences.loop) {
+            this.prevAlbum();
+          }
           this.slideIndex = this.currentAlbum.slides.length - 1;
+        } else {
+          this.slideIndex -= 1;
         }
       }
     }
@@ -220,6 +223,8 @@ module.exports = Vue.extend({
 
     this.$watch('slideIndex', function (value) {
 //      console.log("WATCHING slideIndex " + value);
+
+      console.log("slidePath " + this.slidePath);
     });
 
     this.$watch('albumIndex', function (value) {

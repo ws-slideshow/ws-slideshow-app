@@ -27,6 +27,7 @@ module.exports = {
       slidePath: 'slides/album' + id + '/',
       thumbsPath: 'thumbs/album' + id + '/',
       description: "album description " + id,
+      loop: false,
       slides: this.createSlides(maxSlides)
     }
   },

@@ -13,16 +13,14 @@
       "loop": false,
       "slides": [
         {
-          "name": "18.jpg",
-          "thumbName": "thumb_18.jpg"
-        },
-        {
           "name": "0.jpg",
-          "thumbName": "thumb_0.jpg"
+          "thumbName": "thumb_0.jpg",
+          "description": "Image 0"
         },
         {
           "name": "1.jpg",
-          "thumbName": "thumb_1.jpg"
+          "thumbName": "thumb_1.jpg",
+          "description": "Image 1"
         },
         {
           "name": "2.jpg",
@@ -36,25 +34,13 @@
       "description": "Damp - Baltic Sea (Germany) // Damp - Ostsee",
       "slides": [
         {
-          "name": "8.jpg",
-          "thumbName": "thumb_8.jpg",
-          "description": "Damp - Baltic Sea (Germany) // Damp - Ostsee"
+          "name": "18.jpg",
+          "thumbName": "thumb_18.jpg",
+          "description": "Image 18"
         },
         {
-          "name": "9.jpg",
-          "thumbName": "thumb_9.jpg"
-        },
-        {
-          "name": "2.jpg",
-          "thumbName": "thumb_2.jpg"
-        },
-        {
-          "name": "3.jpg",
-          "thumbName": "thumb_3.jpg"
-        },
-        {
-          "name": "4.jpg",
-          "thumbName": "thumb_4.jpg"
+          "name": "19.jpg",
+          "thumbName": "thumb_19.jpg"
         }
       ]
     }

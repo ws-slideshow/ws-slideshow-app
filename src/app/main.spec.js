@@ -23,6 +23,9 @@ describe('main -> ', function () {
 
   describe('albums -> ', function () {
 
+    // current album
+    // ------------------------------------------------------------
+
     it('currentAlbum has to be nullAlbum before setting data', function () {
       expect(component.currentAlbum).to.deep.equal(component.nullAlbum);
     });
@@ -33,9 +36,8 @@ describe('main -> ', function () {
       expect(component.currentAlbum).to.deep.equal(mockAlbums[0]);
     });
 
-    it('has not a next album by default', function () {
-      expect(component.hasNextAlbum).to.not.be.ok;
-    });
+    // album index
+    // ------------------------------------------------------------
 
     it('count albumIndex forward to NEXT album', function () {
       component.albums = mockFactory.createAlbums(2);
@@ -88,6 +90,14 @@ describe('main -> ', function () {
       expect(component.albumIndex).to.be.equal(2);
     });
 
+
+    // next album
+    // ------------------------------------------------------------
+
+    it('has not a next album by default', function () {
+      expect(component.hasNextAlbum).to.not.be.ok;
+    });
+
     it('has next album', function () {
       component.albums = mockFactory.createAlbums(2);
       expect(component.hasNextAlbum).to.be.ok;
@@ -105,6 +115,13 @@ describe('main -> ', function () {
       component.albumsPreferences.loop = true;
       component.albumIndex = 1;
       expect(component.hasNextAlbum).to.be.ok;
+    });
+
+    // previous album
+    // ------------------------------------------------------------
+
+    it('has not a previous album by default', function () {
+      expect(component.hasPrevAlbum).to.not.be.ok;
     });
 
     it('has a previous album', function () {
@@ -127,5 +144,80 @@ describe('main -> ', function () {
 
 
   });
+
+  describe('slides -> ', function () {
+
+    // current slide
+    // ------------------------------------------------------------
+
+    it('current slide has to be nullSlide before setting data', function () {
+      expect(component.currentSlide).to.deep.equal(component.nullSlide);
+    });
+
+    // next slide
+    // ------------------------------------------------------------
+
+    it('has next slide', function () {
+      component.albums = mockFactory.createAlbums(2, 2);
+      expect(component.hasNextSlide).to.be.ok;
+    });
+
+
+    it('LAST slide has not a next slide', function () {
+      component.albums = mockFactory.createAlbums(2, 2);
+      component.slideIndex = 1;
+      expect(component.hasNextSlide).to.not.be.ok;
+    });
+
+    it('LAST slide has a next slide if loop of ALL albums is enabled', function () {
+      component.albums = mockFactory.createAlbums(2, 2);
+      // set loop
+      component.currentAlbum.loop = true;
+      // set to last slide index
+      component.slideIndex = 1;
+      expect(component.hasNextSlide).to.be.ok;
+    });
+
+    it('LAST slide has a next slide if loop of its album is enabled', function () {
+      component.albums = mockFactory.createAlbums(2, 2);
+      component.albumsPreferences = mockFactory.createAlbumsPreferences();
+      // set loop
+      component.albumsPreferences.loop = true;
+      // set to last slide index
+      component.slideIndex = 1;
+      expect(component.hasNextSlide).to.be.ok;
+    });
+
+    // prev. slide
+    // ------------------------------------------------------------
+
+    it('has a previous slide', function () {
+      component.albums = mockFactory.createAlbums(2, 2);
+      // set to last index
+      component.slideIndex = 1;
+      expect(component.hasPrevSlide).to.be.ok;
+    });
+
+    it('FIRST slide has not a previous slide', function () {
+      component.albums = mockFactory.createAlbums(2, 2);
+      expect(component.hasPrevSlide).to.not.be.ok;
+    });
+
+    it('FIRST slide has a previous album if loop of ALL albums is enabled', function () {
+      component.albums = mockFactory.createAlbums(2, 2);
+      // set loop
+      component.albumsPreferences = mockFactory.createAlbumsPreferences();
+      component.albumsPreferences.loop = true;
+      expect(component.hasPrevSlide).to.be.ok;
+    });
+
+    it('FIRST slide has a previous album if loop of its album is enabled', function () {
+      component.albums = mockFactory.createAlbums(2, 2);
+      // set loop
+      component.currentAlbum.loop = true;
+      expect(component.hasPrevSlide).to.be.ok;
+    });
+
+  })
 
 });

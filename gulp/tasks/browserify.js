@@ -9,6 +9,6 @@ gulp.task('browserify', function () {
       basedir: config.app
     }))
     .pipe($.rename(pkg.name + '.js'))
-    .pipe(gulp.dest(config.tmp + '/app'))
+    .pipe(gulp.dest(config.tmp + '/scripts'))
     .pipe($.size())
 });

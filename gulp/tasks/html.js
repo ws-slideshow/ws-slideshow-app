@@ -8,7 +8,9 @@ gulp.task('html', ['styles', 'browserify'], function () {
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
 
-  var assets = $.useref.assets({searchPath: '{' + config.tmp + ',' + config.src + '}'});
+//  var assets = $.useref.assets({searchPath: '{' + config.tmp + ',' + config.src + '}'});
+  var assets = $.useref.assets({searchPath: [config.tmp, config.src]});
+//  var assets = $.useref.assets({searchPath: [config.tmp]});
 
   return gulp.src(config.src + '/index.html')
     .pipe($.replace(/__version__/g, pkg.version))
