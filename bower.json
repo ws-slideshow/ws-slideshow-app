@@ -1,5 +1,8 @@
 {
   "name": "ws-slideshow",
-  "dependencies": {},
+  "dependencies": {
+    "famous-polyfills": "git@github.com:Famous/polyfills.git#v0.1.1",
+    "famous": "git@github.com:Famous/famous.git#v0.2.2"
+  },
   "devDependencies": {}
 }

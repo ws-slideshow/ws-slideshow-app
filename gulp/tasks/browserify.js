@@ -6,7 +6,11 @@ var gulp = require('gulp'),
 gulp.task('browserify', function () {
   return gulp.src(config.app + '/boot.js')
     .pipe($.browserify({
-      basedir: config.app
+      basedir: config.app,
+      transform: [
+        'debowerify',
+        'deamdify'
+      ]
     }))
     .pipe($.rename(pkg.name + '.js'))
     .pipe(gulp.dest(config.tmp + '/scripts'))

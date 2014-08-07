@@ -1,7 +1,7 @@
 'use strict';
 
-var Vue = require('vue'),
-  Main = require('./main'),
+var Engine = require('famous/core/Engine'),
+  MainView = require('./mainview'),
 
   WSSlideshow = {
 
@@ -19,12 +19,15 @@ var Vue = require('vue'),
     },
 
     initComponents: function (options) {
-      var main = new Main({
-        el: options.element,
-        data:{
-          json: options.json
-        }
-      });
+      var element = document.getElementById(options.element),
+        mainContext = Engine.createContext(element),
+        mainView = new MainView();
+
+      console.log("element " + options.element);
+      console.log(element);
+      console.log(document);
+      // add the instance to the context
+      mainContext.add(mainView);
 
     }
   };
