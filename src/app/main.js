@@ -223,8 +223,6 @@ module.exports = Vue.extend({
 
     this.$watch('slideIndex', function (value) {
 //      console.log("WATCHING slideIndex " + value);
-
-      console.log("slidePath " + this.slidePath);
     });
 
     this.$watch('albumIndex', function (value) {
