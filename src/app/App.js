@@ -4,19 +4,32 @@ var View = require('famous/core/View'),
   Transform = require('famous/core/Transform'),
   ImageSurface = require('famous/surfaces/ImageSurface');
 
-function MainView() {
+function App() {
+  console.log("VIEW");
+  console.log(View.apply);
   View.apply(this, arguments);
-
-  this._addText();
-  this._addLogo();
 }
 
-MainView.prototype = Object.create(View.prototype);
-MainView.prototype.constructor = MainView;
+App.prototype = Object.create(View.prototype);
+App.prototype.constructor = App;
 
-MainView.DEFAULT_OPTIONS = {};
+App.DEFAULT_OPTIONS = {};
 
-MainView.prototype._addLogo = function () {
+
+// public
+// ------------------------------------------------------------
+
+App.prototype.init = function(){
+  _addText.call(this);
+  _addLogo.call(this);
+};
+
+
+// private
+// ------------------------------------------------------------
+
+
+_addLogo = function () {
   // your app here
   var logo = new ImageSurface({
     size: [50, 50],
@@ -35,7 +48,8 @@ MainView.prototype._addLogo = function () {
   this.add(centerSpinModifier).add(logo)
 
 }
-MainView.prototype._addText = function () {
+
+_addText = function () {
   var surface = new Surface({
     size: [500, 50],
     content: 'HELLO WS-Slideshow, I am a surface of FAMOUS',
@@ -52,4 +66,4 @@ MainView.prototype._addText = function () {
   this.add(surface);
 }
 
-module.exports = MainView;
+module.exports = App;

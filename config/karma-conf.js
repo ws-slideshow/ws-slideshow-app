@@ -7,14 +7,6 @@ module.exports = {
     'browserify'
   ],
 
-  plugins: [
-    'karma-mocha',
-    'karma-chai',
-    'karma-sinon',
-    'karma-browserify',
-    'karma-phantomjs-launcher'
-  ],
-
   exclude: [],
 
   reporters: [
@@ -28,11 +20,28 @@ module.exports = {
   colors: true,
   logLevel: "INFO", // karma.LOG_INFO,
 
+  preprocessors: {
+    "/**/*.browserify": 'browserify'
+  },
+
+  // Files to browserify
+  browserify: {
+    transform: [
+      'debowerify',
+      'deamdify'
+    ],
+    files: [
+      'src/vendor/famous-polyfills/index.js',
+      'src/app/**/*.js',
+      'src/app/**/*.spec.js'
+    ]
+  },
+
   browsers: [
     'PhantomJS'
   ],
 
-  captureTimeout: 5000,
+  captureTimeout: 60000,
   singleRun: true
 
 };

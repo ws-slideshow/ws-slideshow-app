@@ -5,11 +5,7 @@ var gulp = require('gulp'),
   pkg = require('../../package.json');
 
 
-gulp.task('test-unit', ['browserify-test'], function (done) {
-  // add files to config
-  karmaConfig.files = [
-      config.tmp + '/app/' + pkg.name + '.spec.js'
-  ];
-
+//gulp.task('test-unit', ['browserify-test'], function (done) {
+gulp.task('test-unit', function (done) {
   karma.start(karmaConfig, done);
 });

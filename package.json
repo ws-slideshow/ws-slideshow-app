@@ -37,7 +37,7 @@
     "insert-css": "^0.2.0",
     "jshint-stylish": "^0.4.0",
     "karma": "^0.12.19",
-    "karma-browserify": "^0.2.1",
+    "karma-browserifast": "^0.7.0",
     "karma-chai": "^0.1.0",
     "karma-mocha": "^0.1.6",
     "karma-phantomjs-launcher": "^0.1.4",

@@ -1,7 +1,7 @@
 'use strict';
 
 var Engine = require('famous/core/Engine'),
-  MainView = require('./mainview'),
+  App = require('./App'),
 
   WSSlideshow = {
 
@@ -21,13 +21,12 @@ var Engine = require('famous/core/Engine'),
     initComponents: function (options) {
       var element = document.getElementById(options.element),
         mainContext = Engine.createContext(element),
-        mainView = new MainView();
+        app = new App();
+      app.init();
 
       console.log("element " + options.element);
-      console.log(element);
-      console.log(document);
       // add the instance to the context
-      mainContext.add(mainView);
+      mainContext.add(app);
 
     }
   };
