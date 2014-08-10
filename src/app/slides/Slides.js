@@ -3,7 +3,8 @@ var View = require('famous/core/View'),
   Transform = require('famous/core/Transform'),
   Modifier = require('famous/core/Modifier'),
   ImageSurface = require('famous/surfaces/ImageSurface'),
-  appStore = require('../AppStore');
+  appStore = require('../AppStore'),
+  AppActions = require('../AppActions');
 
 // constructor
 // ------------------------------------------------------------
@@ -23,8 +24,8 @@ Slides.DEFAULT_OPTIONS = {};
 Slides.prototype.init = function () {
   addLogo.call(this);
 
-  appStore.when(["slideIndex"], function (index) {
-    console.log("SLIDES: slideIndex changed " + index);
+  appStore.slideIndex.listen(function (data) {
+    console.log("appStore.listen -> slideIndex " + data);
   });
 
   return this;
@@ -50,12 +51,12 @@ var addLogo = function () {
     });
 
   logo.on('click', function () {
-    console.log('logo clicked');
+    AppActions.prevSlide();
   });
 
   this.add(logoModifier).add(logo);
 
-}
+};
 
 module.exports = Slides;
 

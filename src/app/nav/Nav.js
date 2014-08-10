@@ -2,7 +2,7 @@ var View = require('famous/core/View'),
   Surface = require('famous/core/Surface'),
   Transform = require('famous/core/Transform'),
   Modifier = require('famous/core/Modifier'),
-  Actions = require('../event/Actions')
+  AppActions = require('../AppActions')
   ;
 
 // constructor
@@ -51,7 +51,7 @@ addContent = function () {
 
 
   surface.on('click', function() {
-    Actions.nextSlide();
+    AppActions.nextSlide();
   });
 }
 

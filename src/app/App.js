@@ -3,7 +3,8 @@ var View = require('famous/core/View'),
   Transform = require('famous/core/Transform'),
   Modifier = require('famous/core/Modifier'),
   Nav = require('./nav/Nav'),
-  Slides = require('./slides/Slides');
+  Slides = require('./slides/Slides'),
+  Reflux = require('reflux');
 
 // constructor
 // ------------------------------------------------------------
@@ -22,6 +23,10 @@ App.prototype.constructor = App;
 App.DEFAULT_OPTIONS = {};
 
 App.prototype.init = function () {
+  // use famous built in event system
+  var EventHandler = require('famous/core/EventHandler');
+  Reflux.setEventEmitter(new EventHandler());
+  // add content
   addSlides.call(this);
   addNav.call(this);
 

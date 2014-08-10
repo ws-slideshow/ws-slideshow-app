@@ -1,37 +1,28 @@
 var EventHandler = require('famous/core/EventHandler'),
-  Dispatcher = require('./event/Dispatcher'),
-  ActionConstants = require('./event/ActionConstants'),
-  Model = require('model'),
-  eventInput = new EventHandler(),
-  
-  // model
-  // ------------------------------------------------------------
-  
-  store = new Model({
-    slideIndex: 0
-  }),
+  AppActions = require('./AppActions'),
+  Reflux = require('reflux'),
 
-  // private
-  // ------------------------------------------------------------
-  
-  init = function () {
-    console.log("INIT AppStore");
-    // register events
-    Dispatcher.register(eventInput);
-    // add event handler
-    eventInput.addListener(ActionConstants.NEXT_SLIDE, nextSlideHandler);
-    eventInput.addListener(ActionConstants.PREV_SLIDE, prevSlideHandler);
-  },
 
-  nextSlideHandler = function (data) {
-    store.slideIndex += 1;
+  stores = {
+
+    slideIndex: Reflux.createStore({
+      init: function () {
+        this.listenTo(AppActions.nextSlide, this.nextSlideHandler);
+        this.listenTo(AppActions.prevSlide, this.prevSlideHandler);
+        this.slideIndex = 0;
+      },
+      nextSlideHandler: function (data) {
+        this.slideIndex += 1;
+        this.trigger(this.slideIndex);
+      },
+      prevSlideHandler: function (data) {
+        this.slideIndex -= 1;
+        this.trigger(this.slideIndex);
+      }
+
+    })
+
+
   };
 
-  prevSlideHandler = function (data) {
-    store.slideIndex -= 1;
-  };
-
-init();
-
-
-module.exports = store;
+module.exports = stores;
